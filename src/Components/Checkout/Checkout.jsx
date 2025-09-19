@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./checkout.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"; 
+// import axios from "axios"; 
 import Footer from "../Footer/Footer";
 import { apiFetch } from "../../utility/Api.js";
 import { ApiContext } from "../../App.jsx";

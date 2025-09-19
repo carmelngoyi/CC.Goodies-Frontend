@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
+import { ApiContext } from "../../App.jsx";
+// import axios from "axios";
 import "./orders.css";
 import Footer from "../Footer/Footer.jsx";
 
 const Orders = () => {
+  const apiFetch = useContext(ApiContext);
   const [orders, setOrders] = useState([]);
   const email = JSON.parse(localStorage.getItem("Auth"))?.email;
 
   useEffect(() => {
     if (email) {
-      axios.apiFetch(`Api/orders/${email}`)
+      apiFetch(`Api/orders/${email}`)
         .then(res => setOrders(res.data))
         .catch(() => setOrders([]));
     }

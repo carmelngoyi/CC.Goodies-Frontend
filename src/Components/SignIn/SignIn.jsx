@@ -23,7 +23,7 @@ const SignIn = () => {
 
     try {
       const credentials = btoa(`${email}:${password}`);
-      const response = await fetch(`http://${ServerIP}:3000/login`, {
+      const response = await fetch(`http://localhost:3000/login`, {
 
         method: "POST",
         headers: {

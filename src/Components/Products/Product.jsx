@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./product.css";
 import Footer from "../Footer/Footer";  
@@ -22,7 +22,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://${serverIP}:3000/products`);
+        const response = await fetch(`http://localhost:3000/products`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);
@@ -68,7 +68,7 @@ const Product = () => {
       <h1 className="divider-big">BECOME OUR</h1>
       <h1 className="divider-text text1">BIGGEST!</h1>
       <h1 className="divider-text text2">GREATEST!</h1>
-      <h1 className="divider-text text3">SUPER!</h1>
+      <h1 className="divider-text text1">SUPER!</h1>
       <h1 className="divider-big">SHOPSTAR</h1>
     
     </div>
@@ -92,7 +92,7 @@ const Product = () => {
             className="button add-button"
             onClick={() => addToCart(product)}
           >
-            BUY NOW
+            Add to Cart
           </button>
         </div>
       ))}

@@ -15,7 +15,7 @@ import { apiFetch } from "./utility/Api.js";
 
 export const ApiContext = createContext(apiFetch); 
 
-const baseURL = process.env.REACT_APP_API_URL;
+const baseURL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
