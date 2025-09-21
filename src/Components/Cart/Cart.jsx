@@ -38,9 +38,6 @@ const Cart = () => {
     );
 
   const handleCheckout = () => {
-    // alert("Checkout successful! Your cart will be cleared.");
-    // setCartItems([]);
-    // localStorage.setItem("cart", JSON.stringify([]));
         navigate("/checkout");
 
   };

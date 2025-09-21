@@ -83,7 +83,7 @@ const Checkout = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/userBankingDetails", {
+      await axios.post("http://serverIP:3000/api/userBankingDetails", {
         email: shipping.email,
         method: payment.method,
         cardNumber: payment.cardNumber,
