@@ -4,7 +4,7 @@ import App from './App.jsx'
 import ReactDOM from 'react-dom/client';
 
 const compUrl = new URL(window.location);
-const url = `http://${compUrl.searchParams.get('ip')}:5000`;
+const url = `http://${compUrl.searchParams.get('ip')}:3000`;
   window.history.pushState({}, '', compUrl);
 
 

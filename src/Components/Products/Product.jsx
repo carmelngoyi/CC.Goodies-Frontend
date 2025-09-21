@@ -61,15 +61,7 @@ const Product = () => {
       <h1 className="divider-text text2">GREATEST!</h1>
       <h1 className="divider-text text3">SUPER!</h1>
       <h1 className="divider-big">SHOPSTAR</h1>
-    {/* <img src="Your paragraph text.jpg" 
-    alt="Promo" 
-    className="promoimg" 
-    style={{
-      width: "1000px", 
-      borderRadius: "10px", 
-      display: "block", 
-      margin: "0 auto" 
-    }} /> */}
+    
     </div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
