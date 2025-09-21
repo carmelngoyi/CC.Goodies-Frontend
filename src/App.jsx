@@ -18,7 +18,6 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-      {/* Navbar outside Routes so it's visible on all pages */}
       <Navbar darkMode={darkMode} toggleMode={toggleMode} />
       <Routes>
         <Route path="/" element={<Navigate to="/homepage" />} />
