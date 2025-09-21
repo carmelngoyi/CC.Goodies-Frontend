@@ -20,6 +20,8 @@ jobs:
 
       # 3. Build project
       - name: Build project
+      env:
+    REACT_APP_API_URL: ${{ secrets.API_URL }}
         run: npm run build
 
       # 4. Deploy to S3
