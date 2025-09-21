@@ -9,16 +9,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
+
 steps:
-      # 1. Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v2
+- name: Checkout code
+uses: actions/checkout@v2
 
       # 2. Install dependencies
       - name: Install dependencies
         run: npm install
-
-      # 3. Build project
       - name: Build project
         run: npm run build
 
