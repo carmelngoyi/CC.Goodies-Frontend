@@ -33,7 +33,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.apiFetch("Api/signup", formData);
+      const res = await axios.post(`http://${serverIP}:3000/signup`, formData);
 
       if (res.status === 201) {
         window.alert("Signup Successful!");

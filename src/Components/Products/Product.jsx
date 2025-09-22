@@ -22,7 +22,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await apiFetch("/api/products");
+        const response = await fetch(`http://${serverIP}:3000/products`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);
