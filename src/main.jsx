@@ -3,9 +3,9 @@ import './index.css'
 import App from './App.jsx'
 import ReactDOM from 'react-dom/client';
 
-const compUrl = new URL(window.location);
-const url = `http://${compUrl.searchParams.get('ip')}:3000`;
-  window.history.pushState({}, '', compUrl);
+const url = new URL(window.location);
+  url.searchParams.set('ip', '54.145.35.219');
+  window.history.pushState({}, '', url);
 
 
 const serverIP = url.searchParams.get('ip');

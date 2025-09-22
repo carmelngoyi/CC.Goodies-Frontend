@@ -2,12 +2,15 @@ import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext.jsx";
 import "./login.css";
+import { apiFetch } from "../../utility/Api.js";
+import { ApiContext } from "../../App.jsx";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
+  const apiFetch = useContext(ApiContext);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +23,8 @@ const SignIn = () => {
 
     try {
       const credentials = btoa(`${email}:${password}`);
-      const response = await fetch("http://serverIP:3000/login", {
+      const response = await apiFetch("api/login", {
+
         method: "POST",
         headers: {
           "Authorization": `Basic ${credentials}`,

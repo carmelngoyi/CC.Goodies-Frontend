@@ -2,6 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./product.css";
 import Footer from "../Footer/Footer";  
+import { apiFetch } from "../../utility/Api.js";
+import { ApiContext } from "../../App.jsx";
+
+async function loadProducts() {
+  const res = await apiFetch("/Api/products");
+  const data = await res.json();
+  console.log(data);
+}
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -9,11 +17,12 @@ const Product = () => {
   const [error, setError] = useState(null);
   const [alert, setAlert] = useState("");
   const navigate = useNavigate();
+  const apiFetch = useContext(ApiContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://serverIP:3000/products");
+        const response = await apiFetch("/api/products");
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);

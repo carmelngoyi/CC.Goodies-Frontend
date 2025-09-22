@@ -9,7 +9,7 @@ const Orders = () => {
 
   useEffect(() => {
     if (email) {
-      axios.get(`http://serverIP:3000/api/orders/${email}`)
+      axios.apiFetch(`Api/orders/${email}`)
         .then(res => setOrders(res.data))
         .catch(() => setOrders([]));
     }

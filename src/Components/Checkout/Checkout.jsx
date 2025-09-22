@@ -3,6 +3,9 @@ import "./checkout.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import Footer from "../Footer/Footer";
+import { apiFetch } from "../../utility/Api.js";
+import { ApiContext } from "../../App.jsx";
+
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -23,7 +26,7 @@ const Checkout = () => {
   });
 
   const navigate = useNavigate();
-
+  const apiFetch = useContext(ApiContext);
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]").map(item => ({
       ...item,
@@ -83,7 +86,7 @@ const Checkout = () => {
     }
 
     try {
-      await axios.post("http://serverIP:3000/api/userBankingDetails", {
+      await axios.apiFetch("Api/userBankingDetails", {
         email: shipping.email,
         method: payment.method,
         cardNumber: payment.cardNumber,
@@ -93,7 +96,7 @@ const Checkout = () => {
         bankName: payment.bankName,
       });
 
-      await axios.post("http://serverIP:3000/api/orders", {
+      await axios.apiFetch("Api/orders", {
     email: shipping.email,
     items: cartItems,
     total,
