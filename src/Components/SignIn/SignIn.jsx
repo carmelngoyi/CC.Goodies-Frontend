@@ -31,11 +31,14 @@ const SignIn = () => {
           "Content-Type": "application/json"
         }
       });
+      
       const data = await response.json();
 
       if (!response.ok) {
         setError(data.error || "Login failed. Please check your credentials.");
         return;
+      }else{
+        window.alert("Login Successful!");
       }
 
       signIn(data.user); 

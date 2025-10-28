@@ -30,8 +30,9 @@ const Home = () => {
       </video>
       <section className="specials">
         <h2 className="specials-heading">Shop Now!</h2>
+        </section>
 
-        <div className="products-grid">
+        {/* <div className="products-grid">
           <div className="product-card">
             <img src="granola.jpg" alt="Granola" />
             <h5 className="brand">Granola Organic</h5>
@@ -47,7 +48,7 @@ const Home = () => {
               })
             }
           >
-            BUY NOW
+            Add to Cart
           </button>
           </div>
 
@@ -56,7 +57,7 @@ const Home = () => {
             <h5 className="brand">Clover</h5>
             <p className="product-text">Full cream milk 1L</p>
             <p className="price">R20.00</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -64,7 +65,7 @@ const Home = () => {
             <h5 className="brand">GreenLeaf</h5>
             <p className="product-text">Extra Virgin Olive Oil</p>
             <p className="price">R139.69</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -72,7 +73,7 @@ const Home = () => {
             <h5 className="brand">Coco Fresh</h5>
             <p className="product-text">Coconut Water 500ml</p>
             <p className="price">R35.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
       </section>
@@ -83,7 +84,7 @@ const Home = () => {
             <h5 className="brand">Crackly's</h5>
             <p className="product-text">Sliced Biltong 750g</p>
             <p className="price">R43.69</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -91,7 +92,7 @@ const Home = () => {
             <h5 className="brand">Morning Mills</h5>
             <p className="product-text">Choco balls 350g</p>
             <p className="price">R35.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -99,7 +100,7 @@ const Home = () => {
             <h5 className="brand">Kellogg's</h5>
             <p className="product-text">Corn Flakes 1kg</p>
             <p className="price">R89.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -107,7 +108,7 @@ const Home = () => {
             <h5 className="brand">Fresh</h5>
             <p className="product-text">Red Apples 1kg</p>
             <p className="price">R17.49</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
       </section>
@@ -118,7 +119,7 @@ const Home = () => {
             <h5 className="brand">Meats</h5>
             <p className="product-text">Beef Boerewors 1kg</p>
             <p className="price">R109.69</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -126,7 +127,7 @@ const Home = () => {
             <h5 className="brand">Fresh</h5>
             <p className="product-text">Green Apples 1kg</p>
             <p className="price">R19.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -134,7 +135,7 @@ const Home = () => {
             <h5 className="brand">Domestos</h5>
             <p className="product-text">Extended Germ-Kill 750ml</p>
             <p className="price">R36.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
 
           <div className="product-card">
@@ -142,10 +143,10 @@ const Home = () => {
             <h5 className="brand">Sunlight</h5>
             <p className="product-text">Dishwashing liquid 750ml</p>
             <p className="price">R34.99</p>
-            <button onClick={addToCart}>BUY NOW</button>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
-      </section>
+      </section> */}
      
 
 

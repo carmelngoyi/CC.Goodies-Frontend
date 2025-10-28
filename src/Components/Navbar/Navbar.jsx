@@ -68,11 +68,12 @@ const Navbar = ({ darkMode, toggleMode }) => {
         <button onClick={toggleMode} className="toggle-btn">
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
-        {isAuth && (
+        <button><Link to="/signup">Sign in/Sign Up</Link></button>
+        {/* {isAuth && (
           <button onClick={handleSignOut} className="toggle-btn" style={{ marginLeft: "1rem", background: "#e63946", color: "#fff" }}>
-            Sign Out
+            Log Out
           </button>
-        )}
+        )} */}
       </div>
     </nav>
   );
