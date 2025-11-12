@@ -45,7 +45,7 @@ const Product = () => {
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
     setAlert(`${product.product_name} added to cart!`);
-    setTimeout(() => setAlert(""), 2000);
+    setTimeout(() => setAlert(""), 3000);
   };
 
   if (loading) return <p>Loading products...</p>;

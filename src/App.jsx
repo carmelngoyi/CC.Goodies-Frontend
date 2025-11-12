@@ -22,7 +22,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const toggleMode = () => setDarkMode((prev) => !prev);
 
-<<<<<<< HEAD
   // Set forced IP once
   useEffect(() => {
     const forcedIp = "54.145.35.219"; 
@@ -34,10 +33,7 @@ function App() {
     }
   }, []);
 
-=======
-
   
->>>>>>> f12b923 (env ready for deployment)
   return (
     <BrowserRouter>
       <AuthProvider>

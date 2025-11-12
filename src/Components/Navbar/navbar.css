@@ -1,14 +1,19 @@
 .navbar {
   width: 100%;
+  height: 100px;
   display: flex;
+  position: sticky; 
+  top: 0;
+  margin-top: -20px;
   justify-content: space-between;
-  background: #f8f8f8;
+  background: #ceafaf;
   padding: 0.75rem 2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  z-index: 1000;
 }
 
 .navbar.dark {
-  background: #222;
+  background: #444444;
   color: #fff;
 }
 

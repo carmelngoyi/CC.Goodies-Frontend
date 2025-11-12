@@ -7,6 +7,12 @@ h2{
   font-size: 1.7rem;
 
 }
+.checkout-order{
+   font-family: "Playfair Display", serif;
+  font-size: 34px;
+  margin-top: 100px;
+  text-decoration: underline;
+}
 
 .checkout-container {
   max-width: 1200px;
@@ -16,12 +22,14 @@ h2{
 }
 
 .checkout-container h1 {
-  text-align: center;
   margin-bottom: 20px;
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  margin-top: 100px;
+  text-decoration: underline;
 }
 
 .checkout-content {
-  /* display: flex; */
   justify-content: space-between;
   gap: 20px;
 }
@@ -29,7 +37,9 @@ h2{
 .checkout-cart, .checkout-form {
   flex: 1;
   background: #fff;
+  width: 700px;
   padding: 20px;
+  margin: auto;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -48,8 +58,8 @@ h2{
 }
 
 .checkout-img {
-  width: 70px;
-  height: 70px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 5px;
 }
