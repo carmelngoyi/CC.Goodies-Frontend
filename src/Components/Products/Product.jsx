@@ -22,7 +22,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:3.89.113.111:3000/products`);
+        const response = await fetch(`http://3.89.113.111:3000/products`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);
