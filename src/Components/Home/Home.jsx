@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="mainhome">
       <main className="hero">
-        <h1>Welcome to <span className="cc">CC.</span>Good<span className="cc">ies</span></h1>
+        <h1>Welcome to dfghjhgf <span className="cc">CC.</span>Good<span className="cc">ies</span></h1>
         <p className="subtitle">Browse our products and shop affordably.</p>
       </main>
       <h2 className="specials-heading">Weekly Specials</h2>
