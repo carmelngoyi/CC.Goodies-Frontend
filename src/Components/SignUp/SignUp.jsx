@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./signUp.css";
 import { AuthContext } from "../AuthContext.jsx";
 
+const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -33,7 +35,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post(`http://54.226.0.228:3000/signup`, formData);
+      const res = await axios.post(`${elasticIP}/signup`, formData);
 
       if (res.status === 201) {
         window.alert("Signup Successful!");

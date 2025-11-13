@@ -5,6 +5,8 @@ import Footer from "../Footer/Footer";
 import { apiFetch } from "../../utility/Api.js";
 import { ApiContext } from "../../App.jsx";
 
+const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
+
 async function loadProducts() {
   const res = await apiFetch("/Api/products");
   const data = await res.json();
@@ -22,7 +24,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://54.226.0.228:3000/products`);
+        const response = await fetch(`${elasticIP}/products`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);

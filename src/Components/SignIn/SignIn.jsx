@@ -5,6 +5,8 @@ import "./login.css";
 import { apiFetch } from "../../utility/Api.js";
 import { ApiContext } from "../../App.jsx";
 
+const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
+
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -23,7 +25,7 @@ const SignIn = () => {
 
     try {
       const credentials = btoa(`${email}:${password}`);
-      const response = await fetch(`http://54.226.0.228:3000/login`, {
+      const response = await fetch(`${elasticIP}/login`, {
 
         method: "POST",
         headers: {

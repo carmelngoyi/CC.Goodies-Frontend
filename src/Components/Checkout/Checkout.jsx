@@ -7,6 +7,8 @@ import { apiFetch } from "../../utility/Api.js";
 import { ApiContext } from "../../App.jsx";
 
 
+const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
+
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
   const [shipping, setShipping] = useState({
@@ -104,7 +106,7 @@ const Checkout = () => {
       });
 
 
-      await axios.post("http://54.226.0.228:3000/api/orders", {
+      await axios.post(`${elasticIP}/orders`, {
         email: shipping.email,
         items: cartItems,
         total,
