@@ -33,7 +33,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post(`http://3.89.113.111:3000/signup`, formData);
+      const res = await axios.post(`http://54.226.0.228:3000/signup`, formData);
 
       if (res.status === 201) {
         window.alert("Signup Successful!");

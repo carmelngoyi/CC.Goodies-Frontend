@@ -104,7 +104,7 @@ const Checkout = () => {
       });
 
 
-      await axios.post("http://3.89.113.111:3000/api/orders", {
+      await axios.post("http://54.226.0.228:3000/api/orders", {
         email: shipping.email,
         items: cartItems,
         total,
