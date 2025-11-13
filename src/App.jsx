@@ -23,15 +23,15 @@ function App() {
   const toggleMode = () => setDarkMode((prev) => !prev);
 
   // Set forced IP once
-  useEffect(() => {
-    const forcedIp = "54.145.35.219"; 
-    const url = new URL(window.location);
-    if (!url.searchParams.get("ip")) {
-      url.searchParams.set("ip", forcedIp);
-      window.history.pushState({}, "", url.toString());
-      localStorage.setItem("forcedIp", forcedIp);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const forcedIp = "54.145.35.219"; 
+  //   const url = new URL(window.location);
+  //   if (!url.searchParams.get("ip")) {
+  //     url.searchParams.set("ip", forcedIp);
+  //     window.history.pushState({}, "", url.toString());
+  //     localStorage.setItem("forcedIp", forcedIp);
+  //   }
+  // }, []);
 
   
   return (
