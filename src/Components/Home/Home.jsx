@@ -3,21 +3,16 @@ import './Home.css'
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const addToCart = (product = null) => {
+  const addToCart = () => {
     const auth = localStorage.getItem("Auth");
     if (!auth) {
       alert("Sign in to add items to cart!");
       return;
   }
-    if (!product) {
-      alert("Product data missing — please add from the product card.");
-      return;
-    }
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push({ ...product, quantity: 1 });
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Item added to cart!");
-  }
+    alert("Item added to cart!");}
 
   return (
     <div className="mainhome">
@@ -35,6 +30,8 @@ const Home = () => {
       </video>
       <section className="specials">
         <h2 className="specials-heading">Shop Now!</h2>
+        </section>
+        <section className="specials">
 
          <div className="products-grid">
           <div className="product-card">
@@ -81,7 +78,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-       <section className="specials">
+       {/* <section className="specials">
          <div className="products-grid">
           <div className="product-card">
             <img src="crackly's biltong.jpeg" alt="Biltong" />
@@ -150,7 +147,7 @@ const Home = () => {
             <button onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
-      </section> 
+      </section> */}
      
 
 
