@@ -133,6 +133,58 @@ const Checkout = () => {
           </Link>
         </div>
 
+        <h2 className="checkout-order">Your Cart</h2>
+
+          <div className="checkout-cart">
+            {cartItems.length === 0 ? (
+              <p>Your cart is empty</p>
+            ) : (
+              <ul>
+                {cartItems.map((item, index) => (
+                  <li key={index} className="checkout-item">
+                    <img
+                      src={item.image_url || item.image}
+                      alt={item.product_name}
+                      className="checkout-img"
+                    />
+                    <div>
+                      <h4>{item.product_name}</h4>
+                      <div className="quantity-controls">
+                        <button onClick={() => updateQuantity(item._id, -1)}>-</button>
+                        <span>{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item._id, 1)}>+</button>
+                      </div>
+                      <p>
+                        Price: R{item.price.toFixed(2)} × {item.quantity} = R
+                        {(item.price * item.quantity).toFixed(2)}
+                      </p>
+                      <button
+                        className="remove-item-btn"
+                        onClick={() => removeItem(item._id)}
+                        style={{
+                          marginTop: "8px",
+                          background: "#e63946",
+                          color: "#fff",
+                          border: "none",
+                          padding: "4px 12px",
+                          borderRadius: "4px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Remove Item
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="checkout-totals">
+              <p>Subtotal: R{subtotal.toFixed(2)}</p>
+              <p>Tax (15%): R{tax.toFixed(2)}</p>
+              <h3>Total: R{total.toFixed(2)}</h3>
+            </div>
+          </div>
+
         <div className="checkout-content">
           
         <h1>Checkout Information</h1>
@@ -254,57 +306,6 @@ const Checkout = () => {
             </form>
           </div>
 
-            <h2 className="checkout-order">Your Cart</h2>
-
-          <div className="checkout-cart">
-            {cartItems.length === 0 ? (
-              <p>Your cart is empty</p>
-            ) : (
-              <ul>
-                {cartItems.map((item, index) => (
-                  <li key={index} className="checkout-item">
-                    <img
-                      src={item.image_url || item.image}
-                      alt={item.product_name}
-                      className="checkout-img"
-                    />
-                    <div>
-                      <h4>{item.product_name}</h4>
-                      <div className="quantity-controls">
-                        <button onClick={() => updateQuantity(item._id, -1)}>-</button>
-                        <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item._id, 1)}>+</button>
-                      </div>
-                      <p>
-                        Price: R{item.price.toFixed(2)} × {item.quantity} = R
-                        {(item.price * item.quantity).toFixed(2)}
-                      </p>
-                      <button
-                        className="remove-item-btn"
-                        onClick={() => removeItem(item._id)}
-                        style={{
-                          marginTop: "8px",
-                          background: "#e63946",
-                          color: "#fff",
-                          border: "none",
-                          padding: "4px 12px",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Remove Item
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className="checkout-totals">
-              <p>Subtotal: R{subtotal.toFixed(2)}</p>
-              <p>Tax (15%): R{tax.toFixed(2)}</p>
-              <h3>Total: R{total.toFixed(2)}</h3>
-            </div>
-          </div>
         </div>
       </div>
       <Footer />
