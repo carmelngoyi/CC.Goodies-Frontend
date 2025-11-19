@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css'
+import Footer from "../Footer/Footer";  
 import { Link } from 'react-router-dom';
 
-
-
-// Note: External libraries like 'react-router-dom' are not available in this single-file environment, 
-// so navigation elements use standard <a> tags instead of <Link>.
-
-// --- 1. MOCK DATA AND CONFIGURATION ---
-
-// Product data including placeholders for the colorful category blocks
 const productCategories = [
     { id: 1, name: "Fresh Produce", description: "Farm-to-Table Fruits & Veg", color: "bg-gray-800", icon: "🍎" },
     { id: 2, name: "Dairy & Eggs", description: "All Your Essentials", color: "bg-yellow-400", icon: "🥚" },
@@ -186,57 +179,7 @@ const Home = () => {
                     </a>
                 </div>
             </section>
-
-
-            {/* --- Footer --- */}
-            <footer className="footer">
-                <div className="footer-container">
-                    <div className="footer-grid">
-                        
-                        <div className="footer-column">
-                            <h4>MY ACCOUNT</h4>
-                            <ul>
-                                {/* Using <a> tag for navigation placeholder */}
-                                <li><a href="#" className="footer-link">Orders</a></li>
-                                <li><a href="#" className="footer-link">Shopping Lists</a></li>
-                            </ul>
-                            <a href="#" className="footer-signup-btn">Sign in/Sign Up</a>
-                        </div>
-
-                        <div className="footer-column">
-                            <h4>CUSTOMER SERVICE</h4>
-                            <ul>
-                                <li><a href="#" className="footer-link">FAQs</a></li>
-                                <li><a href="#" className="footer-link">Delivery Options</a></li>
-                                <li><a href="#" className="footer-link">Returns & Exchanges</a></li>
-                                <li><a href="#" className="footer-link">Terms & Conditions</a></li>
-                                <li><a href="#" className="footer-link">Corporate Sales</a></li>
-                            </ul>
-                        </div>
-
-                        <div className="footer-column">
-                            <h4>ABOUT CC.GOODIES</h4>
-                            <ul>
-                                <li><a href="#" className="footer-link">Store Locator</a></li>
-                                <li><a href="#" className="footer-link">Contact Us</a></li>
-                                <li><a href="#" className="footer-link">About Us</a></li>
-                                <li><a href="#" className="footer-link">Careers</a></li>
-                                <li><a href="#" className="footer-link">Press & News</a></li>
-                            </ul>
-                        </div>
-
-                        <div className="footer-column">
-                            <h4>Be the first to know!</h4>
-                            <p>Sign up for our newsletter to know about our latest deals.</p>
-                            <p className="privacy">Read our <a href="#">Privacy Policy</a></p>
-                        </div>
-                    </div>
-
-                    <div className="footer-bottom">
-                        <p>&copy; 2025 CC.Goodies. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </footer>
+            
                   
         </div>
     );
