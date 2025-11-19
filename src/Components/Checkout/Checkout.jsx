@@ -233,7 +233,8 @@ const Checkout = () => {
                   }`}
                   onClick={() => setPayment({ ...payment, method: "card" })}
                 >
-                  💳 Credit/Debit Card
+                  <i class="fa fa-credit-card" aria-hidden="true"></i>
+ Credit/Debit Card
                 </button>
                 <button
                   type="button"

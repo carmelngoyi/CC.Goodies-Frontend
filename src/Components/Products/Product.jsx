@@ -109,7 +109,7 @@ const Product = () => {
 
     <section className="organic-banner">
       <h2>Natural & organic</h2>
-      <p>Fresh groceries for your family</p>
+      <p>Fresh groceries for you and your family</p>
     </section>
     
   </div>

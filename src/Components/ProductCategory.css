@@ -1,0 +1,291 @@
+/* Global variables and resets */
+:root {
+--primary-color: #007bff; /* Dark Blue */
+--secondary-color: #ff9800; /* Orange Accent */
+--background-color: #f8f9fa;
+--card-bg: #ffffff;
+--text-color: #212529;
+--brand-color: #0056b3;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+background-color: var(--background-color);
+}
+
+/* Header Styling (for the mock component) */
+.main-header {
+background-color: var(--brand-color);
+color: white;
+padding: 15px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-header a {
+color: white;
+text-decoration: none;
+font-weight: 600;
+padding: 5px 10px;
+border-radius: 4px;
+transition: background-color 0.2s;
+}
+
+.main-header a:hover {
+background-color: #004494;
+}
+
+.nav-links {
+display: flex;
+gap: 15px;
+}
+
+/* Footer Styling (for the mock component) */
+.site-footer {
+background-color: var(--text-color);
+color: #f8f9fa;
+padding: 20px 40px;
+margin-top: 50px;
+}
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+}
+.footer-links a {
+color: #adb5bd;
+margin-left: 20px;
+text-decoration: none;
+}
+
+/* Page Wrapper and Banner Styles */
+.page-wrapper {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+
+.promo-banner {
+display: flex;
+gap: 20px;
+margin-bottom: 40px;
+}
+
+.banner {
+flex: 1;
+color: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+min-height: 150px;
+}
+
+.big-sale {
+background: linear-gradient(135deg, #e91e63, #d81b60); /* Pink/Red Gradient */
+}
+
+.special-coupon {
+background: linear-gradient(135deg, #ffc107, #ff9800); /* Yellow/Orange Gradient */
+}
+
+.banner h2 {
+font-size: 2.5em;
+margin-top: 0;
+margin-bottom: 5px;
+}
+
+.banner span {
+font-size: 1.2em;
+font-weight: bold;
+}
+
+/* Divider/Jumbo Text Style */
+.divider {
+text-align: center;
+padding: 40px 0;
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+margin-bottom: 40px;
+}
+
+.divider-big {
+font-size: 3em;
+margin: 0;
+color: var(--text-color);
+}
+
+.divider-text {
+font-size: 1.5em;
+margin: 5px 0;
+}
+
+.text1 { color: var(--primary-color); }
+.text2 { color: var(--secondary-color); }
+
+.page-title {
+margin-bottom: 30px;
+}
+
+/* Products Container & Card */
+.products-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 30px;
+padding: 20px 0;
+}
+
+.product-card {
+background: var(--card-bg);
+border: 1px solid #e0e0e0;
+border-radius: 12px;
+padding: 20px;
+text-align: center;
+transition: transform 0.3s, box-shadow 0.3s;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.product-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+width: 100%;
+height: 180px;
+object-fit: cover;
+border-radius: 8px;
+margin-bottom: 15px;
+}
+
+.productbrand {
+font-size: 0.9em;
+color: #6c757d;
+margin: 5px 0;
+}
+
+.productNames {
+font-size: 1.2em;
+font-weight: 700;
+margin: 10px 0;
+color: var(--brand-color);
+}
+
+.prices {
+font-size: 1.4em;
+color: #d9534f; /* Red for price */
+font-weight: bold;
+margin-bottom: 15px;
+}
+
+.add-button {
+background-color: var(--secondary-color);
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 600;
+transition: background-color 0.2s;
+}
+
+.add-button:hover {
+background-color: #e68a00;
+}
+
+/* Brands Section */
+.brands {
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 40px 0;
+border-top: 1px solid #eee;
+margin-top: 40px;
+}
+
+.brands img {
+height: 50px;
+width: auto;
+max-width: 20%;
+filter: grayscale(100%);
+opacity: 0.6;
+transition: filter 0.3s, opacity 0.3s;
+}
+
+.brands img:hover {
+filter: grayscale(0);
+opacity: 1;
+}
+
+/* Organic Banner */
+.organic-banner {
+background: linear-gradient(45deg, #28a745, #218838); /* Green Gradient */ 
+color: white;
+text-align: center;
+padding: 50px 20px;
+border-radius: 10px;
+margin: 40px 0;
+}
+
+.organic-banner h2 {
+font-size: 2.5em;
+margin-top: 0;
+}
+
+.organic-banner p {
+font-size: 1.2em;
+}
+
+/* Alert Message */
+.alert {
+position: fixed;
+top: 20px;
+right: 20px;
+background-color: #28a745;
+color: white;
+padding: 15px 25px;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+.promo-banner {
+flex-direction: column;
+}
+
+.banner {
+    padding: 20px;
+}
+
+.banner h2 {
+    font-size: 2em;
+}
+
+.divider-big {
+    font-size: 2em;
+}
+
+.divider-text {
+    font-size: 1.2em;
+}
+
+.brands {
+    flex-wrap: wrap;
+}
+
+.brands img {
+    margin: 10px;
+    max-width: 40%;
+}
+
+
+}

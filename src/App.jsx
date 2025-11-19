@@ -6,6 +6,13 @@ import Signup from "./Components/SignUp/SignUp.jsx";
 import SignIn from "./Components/SignIn/SignIn.jsx";
 import Home from "./Components/Home/Home.jsx";
 import Products from "./Components/Products/Product.jsx"; 
+import Backery from "./Components/Backery/Backery.jsx";
+import Bevarages from "./Components/Bevarages/Bevarages.jsx";
+import Cereal from "./Components/Cereal/Cereal.jsx";
+import Dairy from "./Components/Dairy/Dairy.jsx";
+import FruitVeg from "./Components/FruitVeg/FruitVeg.jsx";
+import Poultry from "./Components/Poultry/Poultry.jsx";
+import Snacks from "./Components/Snacks/Snacks.jsx";
 import Cart from "./Components/Cart/Cart.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import Checkout from "./Components/Checkout/Checkout.jsx";
@@ -45,6 +52,13 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/homepage" element={<Home />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/backery" element={<Backery />} />
+            <Route path="/bevarages" element={<Bevarages />} />
+            <Route path="/cereal" element={<Cereal />} />
+            <Route path="/dairy" element={<Dairy />} />
+            <Route path="/fruitVeg" element={<FruitVeg />} />
+            <Route path="/poultry" element={<Poultry />} />
+            <Route path="/snacks" element={<Snacks />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders" element={<Orders />} />

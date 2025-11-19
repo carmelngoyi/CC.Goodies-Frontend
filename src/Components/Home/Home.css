@@ -81,6 +81,25 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
+img{
+  max-width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.product-card {
+  position: relative;
+  background: linear-gradient(135deg, #ff9a76, #ff6f61); /* default gradient */
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  color: #fff;
+}
+
 /* --- Button Styling --- */
 button {
   background: #dc2626; /* Accent Red button */
