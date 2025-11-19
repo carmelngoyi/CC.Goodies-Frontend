@@ -1,4 +1,4 @@
-.page-wrapper5 {
+.page-wrapper {
   font-family: 'Poppins', sans-serif;
   background: #eba0c6;
 }
@@ -199,18 +199,18 @@ img{
   color: #000;
 }
 
-.product-card:nth-child(1n) { 
-  background: linear-gradient(135deg, #414040, #000000); 
+.product-card:nth-child(4n + 1) { 
+  background: linear-gradient(135deg, #38A169, #98FF98); 
 }
-.product-card:nth-child(2n) {
-   background: linear-gradient(135deg, #102435, #001718); 
-  }
-.product-card:nth-child(3n) {
-   background: linear-gradient(135deg, #3b2d37, #11141a); 
-  }
-.product-card:nth-child(4n) {
-   background: linear-gradient(135deg, #203d2a, #0c1316); 
-  }
+.product-card:nth-child(4n + 2) {
+  background: linear-gradient(135deg, #E74C3C, #FF897D); 
+}
+.product-card:nth-child(4n + 3) {
+  background: linear-gradient(135deg, #FFC300, #FF9800); 
+}
+.product-card:nth-child(4n + 4) {
+  background: linear-gradient(135deg, #8E44AD, #C09AD3); 
+}
 
 /* Responsive Grid */
 @media (max-width: 1024px) {

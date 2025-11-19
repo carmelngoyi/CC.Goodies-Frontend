@@ -55,16 +55,19 @@ const Bevarages = () => {
 
   return (
     <>
+    <div className="background2">
+    </div>
   <div className="page-wrapper2">
     <section className="promo-banner">
-      <div className="banner big-sale">
+      
+      {/* <div className="banner big-sale">
         <h2>Big sale <span>60%</span></h2>
         <p>On selected items</p>
-      </div>
-      <div className="banner special-coupon">
+      </div> */}
+      {/* <div className="banner special-coupon">
         <h2>Special Coupon <span>30%</span></h2>
         <p>Use code: SAVE30</p>
-      </div>
+      </div> */}
     </section>
     <div className="divider">
       <h1 className="divider-big">TIME TO</h1>

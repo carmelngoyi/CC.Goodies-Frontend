@@ -1,4 +1,10 @@
-.page-wrapper2 {
+.background2{
+  background: url("/dist/drinkBanner.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.page-wrapper {
   font-family: 'Poppins', sans-serif;
   background: #3399ff;
 }
@@ -133,6 +139,7 @@ img{
   position: relative;
   background: linear-gradient(135deg, #ff9a76, #ff6f61); /* default gradient */
   border-radius: 15px;
+  border: 5px solid bisque;
   padding: 20px;
   text-align: center;
   overflow: hidden;
@@ -199,18 +206,18 @@ img{
   color: #000;
 }
 
-.product-card:nth-child(1n) { 
-  background: linear-gradient(135deg, #414040, #000000); 
+.product-card:nth-child(4n + 1) { 
+  background: linear-gradient(135deg, #3399FF, #66B3FF); 
 }
-.product-card:nth-child(2n) {
-   background: linear-gradient(135deg, #102435, #001718); 
-  }
-.product-card:nth-child(3n) {
-   background: linear-gradient(135deg, #3b2d37, #11141a); 
-  }
-.product-card:nth-child(4n) {
-   background: linear-gradient(135deg, #203d2a, #0c1316); 
-  }
+.product-card:nth-child(4n + 2) {
+  background: linear-gradient(135deg, #00CED1, #4DFFFF); 
+}
+.product-card:nth-child(4n + 3) {
+  background: linear-gradient(135deg, #40E0D0, #8AF0E8); 
+}
+.product-card:nth-child(4n + 4) {
+  background: linear-gradient(135deg, #1E90FF, #6AB4FF); 
+}
 
 /* Responsive Grid */
 @media (max-width: 1024px) {
