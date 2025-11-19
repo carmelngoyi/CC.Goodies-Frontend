@@ -57,14 +57,15 @@ const Backery = () => {
     <>
   <div className="page-wrapper1">
     <section className="promo-banner">
-      <div className="banner big-sale">
+      <img src="backeryBanner.jpg" alt="Bakery Banner" className="banner-image" />
+      {/* <div className="banner big-sale">
         <h2>Big sale <span>60%</span></h2>
         <p>On selected items</p>
       </div>
       <div className="banner special-coupon">
         <h2>Special Coupon <span>30%</span></h2>
         <p>Use code: SAVE30</p>
-      </div>
+      </div> */}
     </section>
     <div className="divider">
       <h1 className="divider-big">GET YOUR</h1>

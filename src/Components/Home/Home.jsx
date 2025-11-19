@@ -1,204 +1,245 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import './Home.css'
 import { Link } from 'react-router-dom';
 
+
+
+// Note: External libraries like 'react-router-dom' are not available in this single-file environment, 
+// so navigation elements use standard <a> tags instead of <Link>.
+
+// --- 1. MOCK DATA AND CONFIGURATION ---
+
+// Product data including placeholders for the colorful category blocks
+const productCategories = [
+    { id: 1, name: "Fresh Produce", description: "Farm-to-Table Fruits & Veg", color: "bg-gray-800", icon: "🍎" },
+    { id: 2, name: "Dairy & Eggs", description: "All Your Essentials", color: "bg-yellow-400", icon: "🥚" },
+    { id: 3, name: "Baking Goods", description: "Flour, Sugar, and More", color: "bg-red-600", icon: "🍞" },
+    { id: 4, name: "Snacks & Treats", description: "Indulge Yourself", color: "bg-green-500", icon: "🍪" },
+    { id: 5, name: "Household Cleaners", description: "Keep Your Home Spotless", color: "bg-cyan-500", icon: "🧼" },
+    { id: 6, name: "Frozen Meals", description: "Quick & Easy Dinners", color: "bg-indigo-600", icon: "🍕" },
+];
+
+const featuredProducts = [
+    { _id: "granola", product_name: "Assorted Granola 750g", brand: "Granola Organic", price: 43.69, image: "https://placehold.co/300x300/fecaca/dc2626?text=Granola" },
+    { _id: "milk", product_name: "Full cream milk 1L", brand: "Clover", price: 20.00, image: "https://placehold.co/300x300/bfdbfe/2563eb?text=Milk" },
+    { _id: "oliveoil", product_name: "Extra Virgin Olive Oil", brand: "GreenLeaf", price: 139.69, image: "https://placehold.co/300x300/d1fae5/059669?text=Olive+Oil" },
+    { _id: "coconutwater", product_name: "Coconut Water 500ml", brand: "Coco Fresh", price: 35.99, image: "https://placehold.co/300x300/ffe4e6/f43f5e?text=Coco+Water" },
+];
+
+const bannerImages = [
+    { id: 1, url: 'https://placehold.co/1400x500/1f2937/ffffff?text=WINTER+PRODUCE+SAVINGS', alt: 'Winter Produce Savings', caption: "Up to 30% Off Seasonal Fruits & Veg" },
+    { id: 2, url: 'https://placehold.co/1400x500/b91c1c/ffffff?text=WEEKLY+GROCERY+SPECIALS', alt: 'Weekly Grocery Specials', caption: "Massive savings on pantry staples." },
+    { id: 3, url: 'https://placehold.co/1400x500/10b981/ffffff?text=DELIVERY+DISCOUNT+EVENT', alt: 'Delivery Discount Event', caption: "Free Delivery on Orders over R500." },
+];
+
+// --- 2. HOME COMPONENT ---
+
 const Home = () => {
-  const addToCart = () => {
-    const auth = localStorage.getItem("Auth");
-    if (!auth) {
-      alert("Sign in to add items to cart!");
-      return;
-  }
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ ...product, quantity: 1 });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Item added to cart!");}
+    const [alert, setAlert] = useState("");
+    const [currentSlide, setCurrentSlide] = useState(0);
 
-  return (
-    <div className="mainhome">
-      <main className="hero">
-        <h1>Welcome to <span className="cc">CC.</span>Good<span className="cc">ies</span></h1>
-        <p className="subtitle">Browse our products and shop affordably.</p>
-      </main>
-      <h2 className="specials-heading">Weekly Specials</h2>
-       <video
-  width="1000"
-  controls
-  autoPlay muted loop style={{ borderRadius: "10px", display: "block", margin: "0 auto" }}
->
-        <source src="Your paragraph text.mp4" type="video/mp4" />
-      </video>
-      <section className="specials">
-        <h2 className="specials-heading">Shop Now!</h2>
-        </section>
-        <section className="specials">
+    // Logic to auto-cycle the banner slides
+    useEffect(() => {
+        const slideInterval = setInterval(() => {
+            setCurrentSlide(prevSlide => 
+                (prevSlide + 1) % bannerImages.length
+            );
+        }, 4500); // Cycles every 4.5 seconds
 
-         <div className="products-grid">
-          <div className="product-card">
-            <img src="granola.jpg" alt="Granola" />
-            <h5 className="brand">Granola Organic</h5>
-            <p className="product-text">Assorted Granola 750g</p>
-            <p className="price">R43.69</p>
-             <button
-            onClick={() =>
-              addToCart({
-                _id: "granola",
-                product_name: "Assorted Granola 750g",
-                price: 43.69,
-                image: "granola.jpg"
-              })
-            }
-          >
-            Add to Cart
-          </button>
-          </div>
+        return () => clearInterval(slideInterval);
+    }, [bannerImages.length]);
 
-          <div className="product-card">
-            <img src="clover milk.jpeg" alt="Milk" />
-            <h5 className="brand">Clover</h5>
-            <p className="product-text">Full cream milk 1L</p>
-            <p className="price">R20.00</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
+    const addToCart = (product) => {
+        // Simple cart simulation using localStorage for persistence
+        const auth = localStorage.getItem("Auth");
+        if (!auth) {
+          setAlert("Please sign in to add items to your cart. (Simulated check)");
+          setTimeout(() => setAlert(""), 3000);
+          return;
+        }
+        try {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ ...product, quantity: 1 });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            setAlert(`${product.product_name} added to cart!`);
+        } catch (error) {
+            setAlert("Error adding to cart.");
+        }
+        setTimeout(() => setAlert(""), 3000);
+    }
 
-          <div className="product-card">
-            <img src="olive oil.jpeg" alt="Olive Oil" />
-            <h5 className="brand">GreenLeaf</h5>
-            <p className="product-text">Extra Virgin Olive Oil</p>
-            <p className="price">R139.69</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
+    const currentBanner = bannerImages[currentSlide];
 
-          <div className="product-card">
-            <img src="vita coco.jpeg" alt="Coconut Water" />
-            <h5 className="brand">Coco Fresh</h5>
-            <p className="product-text">Coconut Water 500ml</p>
-            <p className="price">R35.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
+    return (
+        <div className="main-content">
+            
+            {/* Floating Success Alert */}
+            {alert && (
+                <div className="floating-alert">
+                    {alert}
+                </div>
+            )}
+
+            {/* --- Hero Section & Image Swiper (Banner) --- */}
+            <div className="banner-container">
+                {bannerImages.map((img, index) => (
+                    <div 
+                        key={img.id}
+                        className="slide"
+                        // Setting inline styles for dynamic opacity/z-index based on state
+                        style={{ opacity: index === currentSlide ? 1 : 0, zIndex: index === currentSlide ? 10 : 0 }}
+                    >
+                        <img
+                            src={img.url}
+                            alt={img.alt}
+                            className="slide-image"
+                            onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/1400x500/94a3b8/ffffff?text=Banner+Image+Failed+to+Load" }}
+                        />
+                        {/* Text Overlay for the Banner */}
+                        <div className="slide-overlay">
+                            <h1 className="banner-title">
+                                {currentBanner.caption.toUpperCase()}
+                            </h1>
+                            <p className="banner-subtitle">
+                                Welcome to <span className="text-accent font-bold">CC.</span>Good<span className="text-accent font-bold">ies</span>. Browse our products and shop affordably.
+                            </p>
+                            {/* Using <a> tag for navigation placeholder */}
+                            <a href="#" className="btn-sale-view">
+                                Shop Specials
+                            </a>
+                        </div>
+                    </div>
+                ))}
+                
+                {/* Pagination Dots */}
+                <div className="pagination-dots">
+                    {bannerImages.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentSlide(index)}
+                            className={`dot ${index === currentSlide ? 'active' : ''}`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* --- Colorful Category Grid --- */}
+            <div className="category-section">
+                <h2 className="section-heading">Shop by Category</h2>
+                <div className="category-grid">
+                    {productCategories.map(cat => (
+                        // Dynamic class for background color
+                        <div key={cat.id} className={`category-card ${cat.color.replace('bg-', 'bg-')}`}>
+                            <div className="category-icon">{cat.icon}</div>
+                            <div>
+                                <h3 className="category-title">{cat.name}</h3>
+                                <p className="category-desc">{cat.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* --- Featured Products Grid --- */}
+            <section className="products-section">
+                <h2 className="products-heading">
+                    Weekly Specials
+                </h2>
+
+                <div className="products-grid">
+                    {featuredProducts.map(product => (
+                        <div key={product._id} className="product-card">
+                            <img 
+                                src={product.image} 
+                                alt={product.product_name} 
+                                className="product-image"
+                                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/300x200/ccc/000?text=Product+Image" }}
+                            />
+                            <div className="product-details">
+                                <h4 className="product-brand">{product.brand}</h4>
+                                <h3 className="product-name">{product.product_name}</h3>
+                                <p className="product-price">R{product.price.toFixed(2)}</p>
+                            </div>
+                            <button
+                                className="btn-add-to-cart"
+                                onClick={() => addToCart(product)}
+                            >
+                                Add to Cart
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+
+            {/* --- Sale Banner (Bottom) --- */}
+            <section className="sale-banner">
+                <div className="sale-banner-content">
+                    <div className="sale-text-group">
+                        <h2 className="sale-title">20% OFF</h2>
+                        <p className="sale-subtitle">Limited-Time Bulk Deals</p>
+                    </div>
+                    {/* Using <a> tag for navigation placeholder */}
+                    <a href="#" className="btn-sale-view">
+                        View All Deals
+                    </a>
+                </div>
+            </section>
+
+
+            {/* --- Footer --- */}
+            <footer className="footer">
+                <div className="footer-container">
+                    <div className="footer-grid">
+                        
+                        <div className="footer-column">
+                            <h4>MY ACCOUNT</h4>
+                            <ul>
+                                {/* Using <a> tag for navigation placeholder */}
+                                <li><a href="#" className="footer-link">Orders</a></li>
+                                <li><a href="#" className="footer-link">Shopping Lists</a></li>
+                            </ul>
+                            <a href="#" className="footer-signup-btn">Sign in/Sign Up</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <h4>CUSTOMER SERVICE</h4>
+                            <ul>
+                                <li><a href="#" className="footer-link">FAQs</a></li>
+                                <li><a href="#" className="footer-link">Delivery Options</a></li>
+                                <li><a href="#" className="footer-link">Returns & Exchanges</a></li>
+                                <li><a href="#" className="footer-link">Terms & Conditions</a></li>
+                                <li><a href="#" className="footer-link">Corporate Sales</a></li>
+                            </ul>
+                        </div>
+
+                        <div className="footer-column">
+                            <h4>ABOUT CC.GOODIES</h4>
+                            <ul>
+                                <li><a href="#" className="footer-link">Store Locator</a></li>
+                                <li><a href="#" className="footer-link">Contact Us</a></li>
+                                <li><a href="#" className="footer-link">About Us</a></li>
+                                <li><a href="#" className="footer-link">Careers</a></li>
+                                <li><a href="#" className="footer-link">Press & News</a></li>
+                            </ul>
+                        </div>
+
+                        <div className="footer-column">
+                            <h4>Be the first to know!</h4>
+                            <p>Sign up for our newsletter to know about our latest deals.</p>
+                            <p className="privacy">Read our <a href="#">Privacy Policy</a></p>
+                        </div>
+                    </div>
+
+                    <div className="footer-bottom">
+                        <p>&copy; 2025 CC.Goodies. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </footer>
+                  
         </div>
-      </section>
-       {/* <section className="specials">
-         <div className="products-grid">
-          <div className="product-card">
-            <img src="crackly's biltong.jpeg" alt="Biltong" />
-            <h5 className="brand">Crackly's</h5>
-            <p className="product-text">Sliced Biltong 750g</p>
-            <p className="price">R43.69</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="morning mills.png" alt="Milk" />
-            <h5 className="brand">Morning Mills</h5>
-            <p className="product-text">Choco balls 350g</p>
-            <p className="price">R35.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="kelloggs 1kg.png" alt="Kelloggs Corn flakes" />
-            <h5 className="brand">Kellogg's</h5>
-            <p className="product-text">Corn Flakes 1kg</p>
-            <p className="price">R89.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="Red apples.jpg" alt="Red Apples" />
-            <h5 className="brand">Fresh</h5>
-            <p className="product-text">Red Apples 1kg</p>
-            <p className="price">R17.49</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-        </div>
-      </section>
-      <section className="specials">
-         <div className="products-grid">
-          <div className="product-card">
-            <img src="beef wors.jpg" alt="Boerewors" />
-            <h5 className="brand">Meats</h5>
-            <p className="product-text">Beef Boerewors 1kg</p>
-            <p className="price">R109.69</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="Green apples.jpeg" alt="Green Apples" />
-            <h5 className="brand">Fresh</h5>
-            <p className="product-text">Green Apples 1kg</p>
-            <p className="price">R19.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="domestos.jpg" alt="Domestos" />
-            <h5 className="brand">Domestos</h5>
-            <p className="product-text">Extended Germ-Kill 750ml</p>
-            <p className="price">R36.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-
-          <div className="product-card">
-            <img src="sunlight.jpg" alt="Dishwasher" />
-            <h5 className="brand">Sunlight</h5>
-            <p className="product-text">Dishwashing liquid 750ml</p>
-            <p className="price">R34.99</p>
-            <button onClick={addToCart}>Add to Cart</button>
-          </div>
-        </div>
-      </section> */}
-     
-
-
-      <footer className="footer">
-  <div className="footer-container">
-
-    <div className="footer-column">
-      <h4>MY ACCOUNT</h4>
-      <ul>
-        <li><Link to="/orders">Orders</Link></li>
-        <li><Link to="/products">Shopping Lists</Link></li>
-      </ul>
-        <button><Link to="/signup">Sign in/Sign Up</Link></button>
-    </div>
-
-    <div className="footer-column">
-      <h4>CUSTOMER SERVICE</h4>
-      <ul>
-        <li>FAQs</li>
-        <li>Delivery Options</li>
-        <li>Returns & Exchanges</li>
-        <li>Terms & Conditions</li>
-        <li>Corporate Sales</li>
-      </ul>
-    </div>
-
-    <div className="footer-column">
-      <h4>ABOUT CC.GOODIES</h4>
-      <ul>
-        <li>Store Locator</li>
-        <li>Contact Us</li>
-        <li>About Us</li>
-        <li>Careers</li>
-        <li>Press & News</li>
-      </ul>
-    </div>
-
-    <div className="footer-column newsletter">
-      <h4>Be the first to know!</h4>
-      <p>Sign up for our newsletter to know about our latest deals.</p>
-      <p className="privacy">Read our <a href="#">Privacy Policy</a></p>
-    </div>
-  </div>
-
-  <div className="footer-bottom">
-    <p className='last-p'>© 2025 CC.Goodies. All Rights Reserved.</p>
-  </div>
-</footer>
-
-    </div>
-  );
+    );
 };
 
 export default Home;
