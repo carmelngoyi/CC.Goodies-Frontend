@@ -21,15 +21,13 @@ import { apiFetch } from "./utility/Api.js";
 
 export const ApiContext = createContext(apiFetch);
 
-const baseURL = import.meta.env.VITE_API_URL;
-
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const isAuth = localStorage.getItem("Auth");
   return isAuth ? children : <Navigate to="/signin" replace />;
 };
 
-// Wrapper component to handle conditional Navbar
+// Wrapper component to handle state and conditional Navbar
 const AppWrapper = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -37,26 +35,28 @@ const AppWrapper = () => {
 
   const toggleMode = () => setDarkMode((prev) => !prev);
 
-  // Load cart from localStorage
+  // Load cart from localStorage on mount
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(cart);
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(storedCart);
   }, []);
 
   // Update cart and sync with localStorage
-  const updateCart = (items) => {
-    setCartItems(items);
-    localStorage.setItem("cart", JSON.stringify(items));
+  const updateCart = (newItems) => {
+    setCartItems(newItems);
+    localStorage.setItem("cart", JSON.stringify(newItems));
   };
 
-  // --- FIX APPLIED HERE ---
-  // Pages where Navbar should be hidden
+  // Optional helper to add a single item to cart
+  const addToCart = (item) => {
+    const updatedCart = [...cartItems, item];
+    updateCart(updatedCart);
+  };
+
+  // Hide Navbar on signin/signup pages
   const hideNavbarPaths = ["/signin", "/signup"];
-  
-  // Convert current path to lowercase to handle case-insensitivity (e.g., /Signup vs /signup)
-  const currentPath = location.pathname.toLowerCase(); 
+  const currentPath = location.pathname.toLowerCase();
   const showNavbar = !hideNavbarPaths.includes(currentPath);
-  // -------------------------
 
   return (
     <>
