@@ -121,7 +121,7 @@ const Home = () => {
             muted
             style={{ borderRadius: "10px" }}
           >
-            <source src="/dist/Your paragraph text.mp4" type="video/mp4" />
+            <source src="/dist/assets/Your paragraph text.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

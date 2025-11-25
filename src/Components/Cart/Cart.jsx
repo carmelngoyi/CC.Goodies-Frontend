@@ -8,7 +8,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // NOTE: Using localStorage for cart storage is present in the original logic.
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(cart);
   }, []);
@@ -40,80 +39,57 @@ const Cart = () => {
 
   const handleCheckout = () => {
         navigate("/checkout");
+
   };
 
   if (cartItems.length === 0)
-    return <p className="empty-cart-message">Your cart is empty.</p>;
+    return <p style={{ padding: "20px" }}>Your cart is empty.</p>;
 
   return (
     <>
-    <div className="cart-page-wrapper">
-      <h1 className="page-title">Shopping Cart</h1>
-      
-      <div className="cart-layout">
-        
-        {/* Cart Items List */}
-        <div className="products-container">
-          {cartItems.map((item) => (
-            <div key={item._id} className="product-card cart-item">
-              
-              <div className="item-details-group">
-                <img className="item-image" src={item.image_url || item.image} alt={item.product_name} />
-                
-                <div className="item-info">
-                    <h3>{item.product_name}</h3>
-                    <p className="item-price-unit">Price: R{item.price}</p>
-                </div>
-                
-                {/* Quantity Controls */}
-                <div className="quantity-controls">
-                  <button
-                    className="button quantity-btn"
-                    onClick={() => changeQuantity(item._id, -1)}
-                    disabled={(item.quantity || 1) <= 1}
-                  >
-                    -
-                  </button>
-                  <span className="quantity-count">{item.quantity || 1}</span>
-                  <button
-                    className="button quantity-btn"
-                    onClick={() => changeQuantity(item._id, 1)}
-                  >
-                    +
-                  </button>
-                </div>
-                
-                <p className="item-subtotal">
-                  Subtotal: <span>R{(item.price * (item.quantity || 1)).toFixed(2)}</span>
-                </p>
+    <div>
+      <h1 style={{ padding: "20px" }}>Shopping Cart</h1>
+      <div className="products-container">
+        {cartItems.map((item) => (
+          <div key={item._id} className="product-card">
+            <div>
+              <img src={item.image_url || item.image} alt={item.product_name} />
+              <h3>{item.product_name}</h3>
+              <p>R{item.price}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <button
+                  className="button"
+                  onClick={() => changeQuantity(item._id, -1)}
+                  disabled={(item.quantity || 1) <= 1}
+                >
+                  -
+                </button>
+                <span>{item.quantity || 1}</span>
+                <button
+                  className="button"
+                  onClick={() => changeQuantity(item._id, 1)}
+                >
+                  +
+                </button>
               </div>
-              
-              <button
-                className="button remove-button"
-                onClick={() => removeFromCart(item._id)}
-              >
-                Remove
-              </button>
+              <p>
+                Subtotal: R{(item.price * (item.quantity || 1)).toFixed(2)}
+              </p>
             </div>
-          ))}
-        </div>
-        
-        {/* Cart Summary / Checkout Section */}
-        <div className="cart-summary">
-            <h3>Order Summary</h3>
-            <div className="summary-line">
-                <span>Subtotal ({cartItems.length} items)</span>
-                <span>R{getTotal().toFixed(2)}</span>
-            </div>
-            <div className="summary-line total-line">
-                <h2 className="summary-total">Total</h2>
-                <h2 className="summary-total-amount">R{getTotal().toFixed(2)}</h2>
-            </div>
-            <button className="button checkout-button" onClick={handleCheckout}>
-              Proceed to Checkout
+            <button
+              className="button remove-button"
+              onClick={() => removeFromCart(item._id)}
+            >
+              Remove
             </button>
-        </div>
-        
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: "20px", textAlign: "right" }}>
+        <h2>Total: R{getTotal().toFixed(2)}</h2>
+        <button className="button" onClick={handleCheckout}>
+          Checkout
+        </button>
       </div>
     </div>
     <Footer />
