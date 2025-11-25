@@ -41,19 +41,18 @@ const Home = () => {
 
   // Data for the Category Grid
   const categories = [
-    { path: "/bakery", img: "./dist/assets/bread.jpeg", label: "Bakery" },
-    { path: "/beverages", img: "./dist/assets/bevarages.jpeg", label: "Beverages" },
-    { path: "/snacks", img: "./dist/assets/snacks.jpg", label: "Snacks" },
-    { path: "/poultry", img: "./dist/assets/poultry.jpeg", label: "Meat & Poultry" },
-    { path: "/fruitVeg", img: "./dist/assets/fruitVeg.jpg", label: "Fruit & Veg" },
-    { path: "/dairy", img: "./dist/assets/dairy.jpg", label: "Dairy" },
+    { path: "/bakery", img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFrZXJ5JTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D", label: "Bakery" },
+    { path: "/dairy", img: "https://www.chanakyadairy.com/wp-content/uploads/2019/04/blog-pic.jpg", label: "Dairy" },
+    { path: "/cereal", img: "https://eu-images.contentstack.com/v3/assets/blt2183a7e3152cc969/blt1b9087ea77056d00/64dccd56725fa9888482b479/Keeping_20the_20crunch_20in_20breakfast_20cereals.jpg?width=1280&auto=webp&quality=80&format=jpg&disable=upscale", label: "Cereal" },
+    { path: "/fruitVeg", img: "https://fruitezy.com.au/cdn/shop/products/Veggie-fruit-box-square_6113w.jpg?v=1610106932", label: "Fruit & Veg" },
+    { path: "/bevarages", img: "https://s7d1.scene7.com/is/image/KeminIndustries/shutterstock_519547867?$responsive$", label: "Beverages" },
+    { path: "/snacks", img: "https://nusnax.co.za/wp-content/uploads/2024/05/Home-Page-Bundle.png", label: "Snacks" },
   ];
 
   return (
     <>
       <div className="hero-swiper-container">
         <div className="swiper-wrapper">
-          {/* Map over the slides array to generate the content */}
           {slides.map((slide, index) => (
             <div key={index} className={`swiper-slide ${slide.className}`}>
               <div className="home-hero-content">

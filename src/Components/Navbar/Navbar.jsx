@@ -7,7 +7,7 @@ const Navbar = ({ darkMode, toggleMode, cartItems }) => {
 
   const categories = [
     { name: "Bakery", path: "/bakery" },
-    { name: "Beverages", path: "/beverages" },
+    { name: "Beverages", path: "/bevarages" },
     { name: "Cereal", path: "/cereal" },
     { name: "Dairy", path: "/dairy" },
     { name: "Fruit & Veg", path: "/fruitVeg" },
