@@ -27,10 +27,11 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear previous messages
 
     if (formData.password !== formData.confirmPassword) {
       window.alert("Passwords do not match!");
-      setMessage("Passwords do not match!");
+      setMessage("Error: Passwords do not match!");
       return;
     }
 
@@ -39,7 +40,7 @@ const Signup = () => {
 
       if (res.status === 201) {
         window.alert("Signup Successful!");
-        setMessage("Signup Successful!");
+        setMessage("Signup Successful! Redirecting...");
         setFormData({
           name: "",
           email: "",
@@ -48,6 +49,7 @@ const Signup = () => {
           confirmPassword: ""
         });
 
+        // Automatically sign in the user after successful signup
         signIn(res.data.user);
 
         navigate("/homepage");
@@ -63,36 +65,37 @@ const Signup = () => {
   };
 
   return (
-    <div id="mainDiv">
-      <div id="signup">
+    // Applied main-split class for CSS layout
+    <div className="mainDiv main-split"> 
+      
+      {/* Left Side: Form Container */}
+      <div id="signup" className="signup-form-container"> 
         <h1>Welcome To Our Store!</h1>
         <h3>Sign Up</h3>
         <form onSubmit={handleSubmit}>
+          {/* Removed <br /><br /> tags */}
           <input
             name="name"
-            placeholder="Username"
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
             required
           />
-          <br /><br />
           <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
             required
           />
-          <br /><br />
           <input
             name="address"
-            placeholder="Address"
+            placeholder="Shipping Address"
             value={formData.address}
             onChange={handleChange}
             required
           />
-          <br /><br />
           <input
             name="password"
             type="password"
@@ -101,7 +104,6 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
-          <br /><br />
           <input
             name="confirmPassword"
             type="password"
@@ -110,13 +112,19 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
-          <br /><br />
-          <button type="submit">Sign Up</button>
+          <button type="submit" className="signupButton">Create Account</button>
           <p className="login">
             Already have an account? <Link to="/SignIn">Sign In</Link>
           </p>
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className="status-message">{message}</p>}
+
+      </div>
+      
+      {/* Right Side: Info Panel (Split Screen) */}
+      <div className="rightDiv">
+        <h1>START YOUR JOURNEY</h1>
+        <p>A simple and fast shopping experience awaits you.</p>
       </div>
     </div>
   );

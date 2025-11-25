@@ -1,125 +1,356 @@
-.home-hero {
+/* ==================================== */
+/* 1. Global Variables & Base Styling */
+/* ==================================== */
+
+:root {
+  /* Color Palette - Fresh & Clean */
+  --primary-color: #007bff; /* Main brand color (Vibrant Blue) */
+  --secondary-color: #28a745; /* Accent/Freshness color (Green) */
+  --background-light: #f4f6f9; /* Off-white, soft background */
+  --text-dark: #212529; /* Primary dark text */
+  --text-muted: #6c757d; /* Secondary, less important text */
+  --text-light: #ffffff; /* White text for banners */
+  --card-background: #ffffff;
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.05); /* Very light shadow */
+}
+
+body {
+  font-family: 'Poppins', sans-serif; /* Recommended clean, modern font */
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for all main content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 60px 20px;
+}
+
+/* ==================================== */
+/* 2. Button Styling */
+/* ==================================== */
+
+.btn {
+  padding: 14px 30px; /* Slightly larger for better touch targets */
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px; /* Slightly more rounded corners */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* ==================================== */
+/* 3. Hero Swiper (Banner) Styling */
+/* ==================================== */
+
+.hero-swiper-container {
   width: 100%;
-  height: 380px;
-  opacity: 0.95;
-  /* background: url("https://cdn.woolworths.media/.../hero-groceries.jpg") center/cover no-repeat; */
+  height: 480px; /* Taller banner for maximum impact */
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 60px;
-  border-radius: 0 0 20px 20px;
+  padding: 0 80px;
+  position: relative;
+}
+
+/* Subtle Gradient Overlay for enhanced depth and readability */
+.swiper-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Gradient from transparent to dark */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 1;
+}
+
+/* Slide Background Images (Add your actual paths here) */
+.slide-1 {
+  background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1740&h=480&fit=crop');
+}
+.slide-2 {
+  background-image: url('https://images.unsplash.com/photo-1571587391993-37604d493e88?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1740&h=480&fit=crop');
+}
+.slide-3 {
+  background-image: url('https://images.unsplash.com/photo-1543168256-41881157697e?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1740&h=480&fit=crop');
 }
 
 .home-hero-content {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 25px 35px;
-  border-radius: 12px;
-  max-width: 480px;
+  color: var(--text-light);
+  max-width: 600px;
+  z-index: 2;
+  text-align: left; /* Align text left for a sleek look */
 }
 
 .home-hero-content h1 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 3.8rem; /* Large, bold heading */
+  margin-bottom: 15px;
+  line-height: 1.1;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .home-hero-content p {
-  font-size: 16px;
-  margin-bottom: 15px;
+  font-size: 1.3rem;
+  margin-bottom: 40px;
+  font-weight: 300;
+  max-width: 80%; /* Don't let the paragraph stretch too wide */
 }
 
+/* Swiper Pagination (Dots) */
+.swiper-pagination {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
 
-/* -------- CATEGORIES GRID -------- */
+.pagination-dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pagination-dot.active {
+  background-color: var(--text-light);
+  width: 30px; /* Elongated active dot */
+  border-radius: 6px;
+}
+
+/* ==================================== */
+/* 4. Section Titles and Layout */
+/* ==================================== */
+
+.section {
+  padding: 40px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--text-dark);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: var(--secondary-color); /* Highlight with the fresh color */
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+/* ==================================== */
+/* 5. Categories Grid */
+/* ==================================== */
+
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  /* Auto-fit for max responsiveness, aiming for 6 columns on large screens */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 25px;
-  margin-top: 20px;
 }
 
 .category-card {
-  background: white;
-  border-radius: 14px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 4px 12px;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  text-align: center;
-  padding-bottom: 12px;
+  background-color: var(--card-background);
+  border-radius: 12px;
   overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.category-card:hover {
+  transform: translateY(-8px); /* More pronounced lift */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .category-card img {
   width: 100%;
-  height: 130px;
+  height: 140px; /* Slightly taller images for better visual appeal */
   object-fit: cover;
+  display: block;
+  border-bottom: 4px solid var(--secondary-color); /* Stronger accent */
 }
 
 .category-card span {
   display: block;
-  font-size: 15px;
+  padding: 15px 10px;
   font-weight: 600;
-  padding-top: 10px;
+  font-size: 1.1rem;
+  color: var(--text-dark);
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: rgba(0,0,0,0.12) 0 6px 15px;
-}
+/* ==================================== */
+/* 6. Promotional Banner */
+/* ==================================== */
 
-
-/* -------- PROMO BANNER -------- */
 .promo-banner {
-  margin: 50px 0;
-  padding: 40px;
-  background: #007A33;
-  color: white;
+  margin: 80px 0;
+  padding: 50px;
+  background-color: #f7e1b9; /* A warm, inviting background */
+  background-image: linear-gradient(135deg, #ffc107 0%, #ffeb3b 100%); /* Gold/Yellow gradient */
+  border-radius: 15px;
   text-align: center;
-  border-radius: 16px;
+  color: var(--text-dark);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
 }
 
 .promo-banner h2 {
-  font-size: 26px;
-  margin-bottom: 12px;
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #a06e00; /* Darker accent for contrast */
 }
 
 .promo-banner p {
-  font-size: 15px;
-  margin-bottom: 18px;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  font-weight: 400;
 }
 
+/* Adjust button for promo banner */
 .promo-banner .btn-outline {
-  border-color: white;
-  color: white;
+  border-color: #a06e00;
+  color: #a06e00;
 }
-
 .promo-banner .btn-outline:hover {
-  background: white;
-  color: #007A33;
+  background-color: #a06e00;
+  color: var(--text-light);
+  border-color: #a06e00;
 }
 
+/* ==================================== */
+/* 7. Video Section */
+/* ==================================== */
 
-/* -------- MOBILE RESPONSIVENESS -------- */
-@media (max-width: 480px) {
-  .home-hero {
-    height: 260px;
-    padding-left: 20px;
+.video {
+  margin: 60px 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ==================================== */
+/* 8. Media Queries (Responsiveness) */
+/* ==================================== */
+
+/* Tablet and smaller devices */
+@media (max-width: 992px) {
+  .hero-swiper-container {
+    height: 400px;
   }
-
-  .home-hero-content {
-    padding: 15px 20px;
-    max-width: 300px;
+  .swiper-slide {
+    padding: 0 40px;
   }
-
   .home-hero-content h1 {
-    font-size: 22px;
+    font-size: 3rem;
   }
+  .home-hero-content p {
+    font-size: 1.1rem;
+  }
+  .promo-banner h2 {
+    font-size: 2.5rem;
+  }
+}
 
+/* Mobile devices */
+@media (max-width: 576px) {
+  .hero-swiper-container {
+    height: 350px;
+  }
+  .swiper-slide {
+    padding: 0 20px;
+  }
+  .home-hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .home-hero-content p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
   .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
   }
-
+  .category-card img {
+    height: 100px;
+  }
   .promo-banner {
-    padding: 25px;
+    padding: 30px;
+    margin: 40px 0;
+  }
+  .promo-banner h2 {
+    font-size: 1.8rem;
+  }
+  .promo-banner p {
+    font-size: 1rem;
   }
 }

@@ -1,49 +1,41 @@
+import React from 'react';
+import './footer.css';
 
-import React from "react";
-import { Link } from "react-router-dom";
-import "./footer.css";
-
-const Footer = () => (
-  <footer className="footer">
+const Footer = () => {
+  return (
     <div className="footer-container">
-      <div className="footer-column">
-        <h4>MY ACCOUNT</h4>
-        <ul>
-          <li>Orders</li>
-          <li>Shopping Lists</li>
-        </ul>
-        <button><Link to="/signup">Sign in/Sign Up</Link></button>
+      <div className="footer">
+        <div className="footer-section">
+          <h1 className="footer-h1">CC.Goodies</h1>
+          <p className="footer-p">Fresh Goodies Daily</p>
+          <div className="footer-socials">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="footer-social-link">Facebook</a>
+            <a href="https://www.instagram.com/woolworths_sa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="footer-social-link">Instagram</a>
+          </div>
+        </div>
+
+        <div className="footer-section">
+          <h2 className="footer-h2">Contact Us</h2>
+          <p className="footer-p">Address: 123 Bridal St, Wedding City</p>
+          <p className="footer-p">Phone: +27 69 456 7890</p>
+          <p className="footer-p">Email: cc.goodies@gmail.com</p>
+        </div>
+
+        <div className="footer-section">
+          <h2 className="footer-h2">Business Hours</h2>
+          <p className="footer-p">Monday - Friday: 10:00 - 17:00</p>
+          <p className="footer-p">Saturday: 10:00 - 16:00</p>
+          <p className="footer-p">Sunday: Closed</p>
+          <p className='footer-p'>Public holidays: Closed
+          </p>
+        </div>
       </div>
-      <div className="footer-column">
-        <h4>CUSTOMER SERVICE</h4>
-        <ul>
-          <li>FAQs</li>
-          <li>Delivery Options</li>
-          <li>Returns & Exchanges</li>
-          <li>Terms & Conditions</li>
-          <li>Corporate Sales</li>
-        </ul>
-      </div>
-      <div className="footer-column">
-        <h4>ABOUT CC.GOODIES</h4>
-        <ul>
-          <li>Store Locator</li>
-          <li>Contact Us</li>
-          <li>About Us</li>
-          <li>Careers</li>
-          <li>Press & News</li>
-        </ul>
-      </div>
-      <div className="footer-column newsletter">
-        <h4>Be the first to know!</h4>
-        <p>Sign up for our newsletter to know about our latest deals.</p>
-        <p className="privacy">Read our <a href="#">Privacy Policy</a></p>
+      
+      <div className="footer-bottom">
+        &copy; {new Date().getFullYear()} CC.Goodies. All rights reserved.
       </div>
     </div>
-    <div className="footer-bottom">
-      <p className='last-p'>© 2025 CC.Goodies. All Rights Reserved.</p>
-    </div>
-  </footer>
-);
+  );
+};
 
 export default Footer;

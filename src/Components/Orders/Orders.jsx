@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./orders.css";
 import Footer from "../Footer/Footer.jsx";
-import { apiFetch } from "../../utility/Api.js";
+import { apiFetch } from "../../utility/Api.js"; // Kept import for reference
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -27,7 +27,8 @@ const Orders = () => {
       }
 
       try {
-        const data = await apiFetch(`/api/orders/${email}`);
+        // NOTE: Keeping the original apiFetch logic intact
+        const data = await apiFetch(`/api/orders/${email}`); 
         setOrders(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to fetch orders:", err);
@@ -41,10 +42,23 @@ const Orders = () => {
     fetchOrders();
   }, [email]);
 
-  if (!email) return <p>Please sign in to view your orders.</p>;
-  if (loading) return <p>Loading your orders...</p>;
-  if (error) return <p>{error}</p>;
-  if (orders.length === 0) return <p>No order history found.</p>;
+  // --- Conditional Rendering for States ---
+
+  // Replaced simple text with styled centered messages for better appearance
+  const Message = ({ children, isError = false }) => (
+    <div className={`orders-message-center ${isError ? 'error-state' : ''}`}>
+      <h1 className="orders-title">Your Order History</h1>
+      <p>{children}</p>
+    </div>
+  );
+
+  if (!email) return <Message>Please **sign in** to view your order history.</Message>;
+  if (loading) return <Message>Loading your orders...</Message>;
+  if (error) return <Message isError={true}>{error}</Message>;
+  if (orders.length === 0) return <Message>No order history found.</Message>;
+
+
+  // --- Main Render ---
 
   return (
     <>
@@ -53,43 +67,67 @@ const Orders = () => {
 
         {orders.map((order, idx) => (
           <div key={idx} className="order-card">
-            <div className="order-header">
-              <strong>Order placed on:</strong>{" "}
-              {order.createdAt ? new Date(order.createdAt).toLocaleString() : "Unknown"}
+            
+            {/* Header / Metadata Section */}
+            <div className="order-metadata">
+                {/* Order ID/Date */}
+                <div className="metadata-group">
+                    <div className="metadata-item">
+                        <strong>Order Placed:</strong> 
+                        <span>{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "Unknown"}</span>
+                    </div>
+                    <div className="metadata-item">
+                        <strong>Order Time:</strong> 
+                        <span>{order.createdAt ? new Date(order.createdAt).toLocaleTimeString() : "N/A"}</span>
+                    </div>
+                </div>
+                
+                {/* Status/Total */}
+                <div className="metadata-group total-group">
+                    <div className="metadata-item order-status">
+                        <strong>Status:</strong> 
+                        <span className={`status-${order.status?.toLowerCase() || 'delivered'}`}>
+                            {order.status || 'Delivered'}
+                        </span>
+                    </div>
+                    <div className="metadata-item order-total">
+                        <strong>Total:</strong> 
+                        <span>R{order.total?.toFixed(2) || '0.00'}</span>
+                    </div>
+                </div>
             </div>
 
-            <div className="order-total">
-              <strong>Total:</strong> R{order.total?.toFixed(2) || 0}
-            </div>
-
-            <div className="order-shipping">
-              <strong>Shipping to:</strong>{" "}
-              {order.shipping?.address || "N/A"}, {order.shipping?.city || "N/A"}
-            </div>
-
+            {/* Order Items List */}
             <ul className="order-items">
               {Array.isArray(order.items) && order.items.length > 0 ? (
                 order.items.map((item, i) => (
                   <li key={i} className="order-item">
                     <div className="order-item-info">
                       <img
-                        src={item.image_url || item.image || ""}
+                        src={item.image_url || item.image || "https://via.placeholder.com/60"}
                         alt={item.product_name || "Product"}
                       />
                       <div>
                         <span className="order-item-name">{item.product_name || "Unknown"}</span>
                         <div className="quantity-controls">
-                          <span>x {item.quantity || 1}</span>
+                          <span className="qty-badge">Qty: x {item.quantity || 1}</span>
                         </div>
                       </div>
                     </div>
-                    <span className="order-item-price">R{item.price?.toFixed(2) || 0}</span>
+                    <span className="order-item-price">R{item.price?.toFixed(2) || '0.00'}</span>
                   </li>
                 ))
               ) : (
-                <li>No items in this order</li>
+                <li className="no-items-placeholder">No items found for this order.</li>
               )}
             </ul>
+            
+            {/* Footer / Shipping Information */}
+            <div className="order-footer">
+                <strong>Shipping Address:</strong>{" "}
+                {order.shipping?.address || "N/A"} / {order.shipping?.city || "N/A"}
+            </div>
+            
           </div>
         ))}
       </div>

@@ -1,140 +1,93 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./navbar.css";
-import { FaCog } from "react-icons/fa";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './navbar.css';
 
-const Navbar = ({ darkMode, toggleMode }) => {
-  const [cartCount, setCartCount] = useState(0);
-  const [isAuth, setIsAuth] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const [openSettings, setOpenSettings] = useState(false);
-  const toggleSettings = () => setOpenSettings(!openSettings);
-
+const Navbar = ({ darkMode, toggleMode, cartItems }) => { 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", darkMode);
-    document.body.classList.toggle("light-mode", !darkMode);
-  }, [darkMode]);
+  const categories = [
+    { name: "Bakery", path: "/bakery" },
+    { name: "Beverages", path: "/beverages" },
+    { name: "Cereal", path: "/cereal" },
+    { name: "Dairy", path: "/dairy" },
+    { name: "Fruit & Veg", path: "/fruitVeg" },
+    { name: "Meat & Poultry", path: "/poultry" },
+    { name: "Snacks", path: "/snacks" },
+  ];
+  
+  const isAuth = localStorage.getItem("Auth");
+  const isLoggedIn = !!isAuth; 
 
-  useEffect(() => {
-    const auth = localStorage.getItem("Auth");
-    setIsAuth(!!auth);
-    if (auth) {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCartCount(cart.length);
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const auth = localStorage.getItem("Auth");
-      setIsAuth(!!auth);
-      if (auth) {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        setCartCount(cart.length);
-      } else {
-        setCartCount(0);
-      }
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
+  
   const handleSignOut = () => {
-    localStorage.removeItem("Auth");
+    localStorage.removeItem("Auth"); 
     navigate("/signin");
   };
-
-  const categories = [
-    { path: "/bakery", text: "Bakery" },
-    { path: "/bevarages", text: "Beverages" },
-    { path: "/cereal", text: "Cereal" },
-    { path: "/dairy", text: "Dairy" },
-    { path: "/fruitVeg", text: "Fruit & Veg" },
-    { path: "/poultry", text: "Poultry" },
-    { path: "/snacks", text: "Snacks" },
-  ];
-
-  const mainNavLinks = [
-    { path: "/homepage", text: "Home" },
-    { path: "/products", text: "Products" },
-  ];
-
-  const trailingNavLinks = [
-    { path: "/cart", text: `Cart${isAuth ? ` (${cartCount})` : ""}` },
-    { path: "/checkout", text: "Checkout" },
-    { path: "/orders", text: "My Orders" },
-  ];
+  
+  const cartItemCount = Array.isArray(cartItems) ? cartItems.length : 0;
 
   return (
-    <nav className={`navbar ${darkMode ? "dark" : "light"}`}>
-      <Link to="/" className="logo">
-        CC.<span className="logo-h">Good</span>ies
-      </Link>
-
-      <div className="nav-links">
-        
-        {mainNavLinks.map((link, index) => (
-          <Link key={index} to={link.path} className="nav-link">
-            {link.text}
-          </Link>
-        ))}
-
-        <div
-          className="dropdown"
-          onMouseEnter={() => setIsDropdownOpen(true)}
-          onMouseLeave={() => setIsDropdownOpen(false)}
-        >
-          <span className="nav-link dropdown-toggle">
-            Categories <i className="fa fa-caret-down" aria-hidden="true"></i>
-          </span>
-
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              {categories.map((item, index) => (
-                <Link
-                  key={index}
-                  to={item.path}
-                  className="dropdown-item"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  {item.text}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {trailingNavLinks.map((link, index) => (
-          <Link key={`trailing-${index}`} to={link.path} className="nav-link">
-            {link.text}
-          </Link>
-        ))}
-
-        {/* SETTINGS MENU */}
-        <div className="settings-container">
-          <FaCog className="settings-icon" onClick={toggleSettings} />
-
-          {openSettings && (
-            <div className="settings-dropdown">
-
-              <button onClick={toggleMode} className="settings-item">
-                {darkMode ? "Light Mode" : "Dark Mode"}
-              </button>
-
-              {isAuth && (
-                <button onClick={handleSignOut} className="settings-item logout-btn">
-                  Sign out/ Sign In
-                </button>
+    <div className={darkMode ? 'dark-mode' : ''}>
+      <nav className="navbar">
+        <div className="navbar-container container">
+          <div className="logo" onClick={() => navigate("/")}>
+            <h1 className='navLogo'>CC.Goodies</h1>
+          </div>
+          
+          <ul className="nav-links">
+            <li onClick={() => navigate("/")}>Home</li>
+            <li onClick={() => navigate("/products")}>Products</li>
+            
+            <li className="dropdown">
+              <span className="dropdown-title">Categories ▼</span>
+              <div className="dropdown-menu">
+                {categories.map((cat) => (
+                  <span key={cat.name} onClick={() => navigate(cat.path)}>
+                    {cat.name}
+                  </span>
+                ))}
+              </div>
+            </li>
+            
+            <li onClick={() => navigate("/checkout")}>Checkout</li>
+            <li onClick={() => navigate("/orders")}>My Orders</li>
+          </ul>
+          
+          <div className="nav-actions">
+            
+            <div className="nav-icon-wrapper" onClick={() => navigate("/cart")}>
+              <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+              {cartItemCount > 0 && (
+                  <span className="cart-badge">{cartItemCount}</span>
               )}
             </div>
-          )}
-        </div>
+              
 
-      </div>
-    </nav>
+            <div className="nav-icon dropdown">
+                <i className="fa fa-cog" aria-hidden="true"></i>
+
+                <div className="dropdown-menu dropdown-settings">
+                    <span onClick={toggleMode}>
+                        {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                    </span>
+                    
+                    {isLoggedIn ? (
+                        <span onClick={handleSignOut}>
+                             Sign Out
+                        </span>
+                    ) : (
+                        <span onClick={() => navigate("/signin")}>
+                            <i className="fa fa-user" aria-hidden="true"></i>
+                             Sign In
+                        </span>
+                    )}
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 };
 

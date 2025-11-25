@@ -1,70 +1,112 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* --- Login/Sign-In Page Styles (login.css) --- */
 
-body, .mainDiv {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* background: url("pexels-anna-guerrero-788383-1956974.jpg") no-repeat center center fixed; */
-    background-size: cover;
-    min-height: 100vh;
-    /* width: 95vw; */
-    margin: 0;
-    padding: 0;
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-light: #f4f7f6;
+    --card-background: #ffffff;
+    --text-dark: #333333;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .mainDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 75vh;
-    background: none; /* No overlay */
+    height: 100vh;
+    background-color: var(--background-light);
+    font-family: 'Arial', sans-serif;
 }
 
 #signin {
-    /* background: transparent; No grey or color overlay */
-    background-color: antiquewhite;
-    padding: 30px;
-    border-radius: 12px;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
+    padding: 40px;
+    background: var(--card-background);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
     text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.welcome {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
 }
 
 #signin h3 {
+    font-size: 1.5em;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#signin form div {
+    text-align: left;
     margin-bottom: 20px;
-    color: #333;
 }
 
-input {
+#signin label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+}
+
+#signin input {
     width: 100%;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 1px solid #ced4da;
     border-radius: 8px;
-    font-size: 16px;
-    background: rgba(255,255,255,0.85);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-button {
-    background-color: green;
+#signin input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+#signin button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    background-color: var(--primary-color);
     color: white;
-    padding: 12px 20px;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-p {
-    margin-top: 15px;
-    color: red;
+    font-size: 1.1em;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#signin button:hover {
+    background-color: #0056b3;
+}
+
+#signin p {
+    margin-top: 20px;
+    color: var(--text-dark);
+}
+
+#signin a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#signin a:hover {
+    text-decoration: underline;
+}
+
+#signin p[style*="color: red"] {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24 !important;
+    border-radius: 6px;
 }

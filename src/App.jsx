@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "./App.css";
 import Signup from "./Components/SignUp/SignUp.jsx";
 import SignIn from "./Components/SignIn/SignIn.jsx";
@@ -23,19 +23,21 @@ export const ApiContext = createContext(apiFetch);
 
 const baseURL = import.meta.env.VITE_API_URL;
 
-//  Protected Route Component
+// Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const isAuth = localStorage.getItem("Auth");
   return isAuth ? children : <Navigate to="/signin" replace />;
 };
 
-function App() {
+// Wrapper component to handle conditional Navbar
+const AppWrapper = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const location = useLocation();
 
   const toggleMode = () => setDarkMode((prev) => !prev);
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(cart);
@@ -47,58 +49,73 @@ function App() {
     localStorage.setItem("cart", JSON.stringify(items));
   };
 
+  // --- FIX APPLIED HERE ---
+  // Pages where Navbar should be hidden
+  const hideNavbarPaths = ["/signin", "/signup"];
+  
+  // Convert current path to lowercase to handle case-insensitivity (e.g., /Signup vs /signup)
+  const currentPath = location.pathname.toLowerCase(); 
+  const showNavbar = !hideNavbarPaths.includes(currentPath);
+  // -------------------------
+
+  return (
+    <>
+      {showNavbar && (
+        <Navbar darkMode={darkMode} toggleMode={toggleMode} cartItems={cartItems} />
+      )}
+
+      <Routes>
+        <Route path="/" element={<Navigate to="/homepage" />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<SignIn />} />
+
+        {/* Public pages */}
+        <Route path="/homepage" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/bakery" element={<Bakery />} />
+        <Route path="/bevarages" element={<Bevarages />} />
+        <Route path="/cereal" element={<Cereal />} />
+        <Route path="/dairy" element={<Dairy />} />
+        <Route path="/fruitVeg" element={<FruitVeg />} />
+        <Route path="/poultry" element={<Poultry />} />
+        <Route path="/snacks" element={<Snacks />} />
+
+        {/* Protected pages */}
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart cartItems={cartItems} updateCart={updateCart} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
+  );
+};
+
+function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ApiContext.Provider value={apiFetch}>
-          {/* Pass cartItems to Navbar */}
-          <Navbar darkMode={darkMode} toggleMode={toggleMode} cartItems={cartItems} />
-
-          <Routes>
-            <Route path="/" element={<Navigate to="/homepage" />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<SignIn />} />
-
-            {/* Public pages */}
-            <Route path="/homepage" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/bakery" element={<Bakery />} />
-            <Route path="/bevarages" element={<Bevarages />} />
-            <Route path="/cereal" element={<Cereal />} />
-            <Route path="/dairy" element={<Dairy />} />
-            <Route path="/fruitVeg" element={<FruitVeg />} />
-            <Route path="/poultry" element={<Poultry />} />
-            <Route path="/snacks" element={<Snacks />} />
-
-            {/* Protected pages */}
-            <Route
-              path="/cart"
-              element={
-                <ProtectedRoute>
-                  <Cart cartItems={cartItems} updateCart={updateCart} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/checkout"
-              element={
-                <ProtectedRoute>
-                  <Checkout />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/orders"
-              element={
-                <ProtectedRoute>
-                  <Orders />
-                </ProtectedRoute>
-              }
-            />
-
-          </Routes>
+          <AppWrapper />
         </ApiContext.Provider>
       </AuthProvider>
     </BrowserRouter>

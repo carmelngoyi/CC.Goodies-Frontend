@@ -13,7 +13,7 @@ const Checkout = () => {
     email: "",
   });
   const [payment, setPayment] = useState({
-    method: "",
+    method: "card", // Default to 'card'
     cardNumber: "",
     expiry: "",
     cvv: "",
@@ -22,6 +22,7 @@ const Checkout = () => {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -78,6 +79,12 @@ const Checkout = () => {
     return shippingFilled && paymentFilled && cartItems.length > 0;
   };
 
+  // Function to close the modal and navigate to the Orders page
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+    navigate("/orders"); 
+  };
+
   const handlePlaceOrder = async () => {
     if (!allFieldsFilled()) {
       setMessage({ text: "Please fill all required fields.", type: "error" });
@@ -117,20 +124,22 @@ const Checkout = () => {
         body: JSON.stringify(orderPayload),
       });
 
-      setMessage({ text: "Order placed successfully!", type: "success" });
+      // Clear state and localStorage
       localStorage.setItem("cart", "[]");
       setCartItems([]);
       setShipping({ name: "", address: "", city: "", email: "" });
       setPayment({
-        method: "",
+        method: "card",
         cardNumber: "",
         expiry: "",
         cvv: "",
         accountNumber: "",
         bankName: "",
       });
+      
+      // Show the success modal
+      setShowSuccessModal(true); 
 
-      setTimeout(() => navigate("/products"), 2000);
     } catch (err) {
       console.error(err);
       setMessage({ text: "Failed to place order. Check console.", type: "error" });
@@ -144,167 +153,202 @@ const Checkout = () => {
       <div className="checkout-container">
         <div style={{ marginBottom: "1rem" }}>
           <Link to="/cart">
-            <button className="back-btn">Back to Cart</button>
+            <button className="back-btn">← Back to Cart</button>
           </Link>
         </div>
 
-        <h2 className="checkout-order">Your Cart</h2>
-        <div className="checkout-cart">
-          {cartItems.length === 0 ? (
-            <p>Your cart is empty</p>
-          ) : (
-            <ul>
-              {cartItems.map((item, index) => (
-                <li key={index} className="checkout-item">
-                  <img
-                    src={item.image_url || item.image}
-                    alt={item.product_name}
-                    className="checkout-img"
-                  />
-                  <div>
-                    <h4>{item.product_name}</h4>
-                    <div className="quantity-controls">
-                      <button onClick={() => updateQuantity(item._id, -1)}>-</button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item._id, 1)}>+</button>
-                    </div>
-                    <p>
-                      Price: R{item.price.toFixed(2)} × {item.quantity} = R
-                      {(item.price * item.quantity).toFixed(2)}
-                    </p>
-                    <button
-                      className="remove-item-btn"
-                      onClick={() => removeItem(item._id)}
-                    >
-                      Remove Item
-                    </button>
+        <h2 className="checkout-header">Complete Your Order</h2>
+        
+        <div className="checkout-main-content">
+          
+          {/* --- LEFT COLUMN: Order Summary (Cart) --- */}
+          <div className="checkout-summary-section">
+            <h2>Your Order Summary</h2>
+            <div className="checkout-cart">
+              {cartItems.length === 0 ? (
+                <p>Your cart is empty</p>
+              ) : (
+                <ul>
+                  {cartItems.map((item, index) => (
+                    <li key={index} className="checkout-item">
+                      <img
+                        src={item.image_url || item.image}
+                        alt={item.product_name}
+                        className="checkout-img"
+                      />
+                      <div>
+                        <h4>{item.product_name}</h4>
+                        <div className="quantity-controls">
+                          <button onClick={() => updateQuantity(item._id, -1)} disabled={(item.quantity || 1) <= 1}>-</button>
+                          <span>{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item._id, 1)}>+</button>
+                        </div>
+                        <p>
+                          Price: R{item.price.toFixed(2)} × {item.quantity} = R
+                          {(item.price * item.quantity).toFixed(2)}
+                        </p>
+                        <button
+                          className="remove-item-btn"
+                          onClick={() => removeItem(item._id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            
+            <div className="checkout-totals">
+              <p>Subtotal: R{subtotal.toFixed(2)}</p>
+              <p>Tax (15%): R{tax.toFixed(2)}</p>
+              <h3>Order Total: R{total.toFixed(2)}</h3>
+            </div>
+          </div>
+          
+          {/* --- RIGHT COLUMN: Shipping and Payment Form --- */}
+          <div className="checkout-form-section">
+            
+            {message.text && (
+              <div className={`message ${message.type}`}>{message.text}</div>
+            )}
+            
+            <div className="checkout-form">
+              <h2>Shipping Details</h2>
+              <form onSubmit={e => e.preventDefault()}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name *"
+                  value={shipping.name}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email *"
+                  value={shipping.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Address Line"
+                  value={shipping.address}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={shipping.city}
+                  onChange={handleInputChange}
+                />
+                
+
+                <h2>Payment Details</h2>
+                <div className="payment-methods">
+                  <button
+                    type="button"
+                    className={`payment-option ${payment.method === "card" ? "active" : ""}`}
+                    onClick={() => setPayment({ ...payment, method: "card" })}
+                  >
+                    💳 Credit/Debit Card
+                  </button>
+                  <button
+                    type="button"
+                    className={`payment-option ${payment.method === "eft" ? "active" : ""}`}
+                    onClick={() => setPayment({ ...payment, method: "eft" })}
+                  >
+                    🏦 EFT (Electronic Funds Transfer)
+                  </button>
+                </div>
+
+                {payment.method === "card" && (
+                  <div className="card-details">
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      placeholder="Card Number *"
+                      value={payment.cardNumber}
+                      onChange={handlePaymentChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="expiry"
+                      placeholder="Expiry (MM/YY) *"
+                      value={payment.expiry}
+                      onChange={handlePaymentChange}
+                      required
+                    />
+                    <input
+                      type="password"
+                      name="cvv"
+                      placeholder="CVV *"
+                      value={payment.cvv}
+                      onChange={handlePaymentChange}
+                      required
+                    />
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="checkout-totals">
-            <p>Subtotal: R{subtotal.toFixed(2)}</p>
-            <p>Tax (15%): R{tax.toFixed(2)}</p>
-            <h3>Total: R{total.toFixed(2)}</h3>
-          </div>
-        </div>
+                )}
 
-        <div className="checkout-content">
-          <h1>Checkout Information</h1>
+                {payment.method === "eft" && (
+                  <div className="eft-details">
+                    <input
+                      type="text"
+                      name="accountNumber"
+                      placeholder="Account Number *"
+                      value={payment.accountNumber}
+                      onChange={handlePaymentChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="bankName"
+                      placeholder="Bank Name *"
+                      value={payment.bankName}
+                      onChange={handlePaymentChange}
+                      required
+                    />
+                  </div>
+                )}
 
-          {message.text && (
-            <div className={`message ${message.type}`}>{message.text}</div>
-          )}
-
-          <div className="checkout-form">
-            <h2>Shipping Details</h2>
-            <form onSubmit={e => e.preventDefault()}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={shipping.name}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="address"
-                placeholder="Address"
-                value={shipping.address}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-                value={shipping.city}
-                onChange={handleInputChange}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={shipping.email}
-                onChange={handleInputChange}
-              />
-
-              <h2>Payment Details</h2>
-              <div className="payment-methods">
                 <button
+                  className="place-order-btn"
                   type="button"
-                  className={`payment-option ${payment.method === "card" ? "active" : ""}`}
-                  onClick={() => setPayment({ ...payment, method: "card" })}
+                  onClick={handlePlaceOrder}
+                  disabled={!allFieldsFilled() || loading}
                 >
-                  💳 Credit/Debit Card
+                  {loading ? "Placing Order..." : `Place Order - R${total.toFixed(2)}`}
                 </button>
-                <button
-                  type="button"
-                  className={`payment-option ${payment.method === "eft" ? "active" : ""}`}
-                  onClick={() => setPayment({ ...payment, method: "eft" })}
-                >
-                  🏦 EFT
-                </button>
-              </div>
-
-              {payment.method === "card" && (
-                <div className="card-details">
-                  <input
-                    type="text"
-                    name="cardNumber"
-                    placeholder="Card Number"
-                    value={payment.cardNumber}
-                    onChange={handlePaymentChange}
-                  />
-                  <input
-                    type="text"
-                    name="expiry"
-                    placeholder="Expiry (MM/YY)"
-                    value={payment.expiry}
-                    onChange={handlePaymentChange}
-                  />
-                  <input
-                    type="password"
-                    name="cvv"
-                    placeholder="CVV"
-                    value={payment.cvv}
-                    onChange={handlePaymentChange}
-                  />
-                </div>
-              )}
-
-              {payment.method === "eft" && (
-                <div className="eft-details">
-                  <input
-                    type="text"
-                    name="accountNumber"
-                    placeholder="Account Number"
-                    value={payment.accountNumber}
-                    onChange={handlePaymentChange}
-                  />
-                  <input
-                    type="text"
-                    name="bankName"
-                    placeholder="Bank Name"
-                    value={payment.bankName}
-                    onChange={handlePaymentChange}
-                  />
-                </div>
-              )}
-
-              <button
-                className="place-order-btn"
-                type="button"
-                onClick={handlePlaceOrder}
-                disabled={!allFieldsFilled() || loading}
-              >
-                {loading ? "Placing Order..." : "Place Your Order"}
-              </button>
-            </form>
+              </form>
+            </div>
           </div>
+          
         </div>
       </div>
       <Footer />
+      
+      {/* --- SUCCESS MODAL JSX --- */}
+      {showSuccessModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>🎉 Order Complete! 🎉</h2>
+            <p className="modal-message">Thank you For Shopping With us</p>
+            <button 
+              className="modal-ok-btn"
+              onClick={handleCloseModal}
+            >
+              View My Orders
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
