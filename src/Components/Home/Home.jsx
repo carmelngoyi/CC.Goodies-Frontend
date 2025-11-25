@@ -41,17 +41,16 @@ const Home = () => {
 
   // Data for the Category Grid
   const categories = [
-    { path: "/bakery", img: "./dist/bread.jpeg", label: "Bakery" },
-    { path: "/beverages", img: "./dist/bevarages.jpeg", label: "Beverages" },
-    { path: "/snacks", img: "./dist/snacks.jpg", label: "Snacks" },
-    { path: "/poultry", img: "./dist/poultry.jpeg", label: "Meat & Poultry" },
-    { path: "/fruitVeg", img: "./dist/fruitVeg.jpg", label: "Fruit & Veg" },
-    { path: "/dairy", img: "./dist/dairy.jpg", label: "Dairy" },
+    { path: "/bakery", img: "./dist/assets/bread.jpeg", label: "Bakery" },
+    { path: "/beverages", img: "./dist/assets/bevarages.jpeg", label: "Beverages" },
+    { path: "/snacks", img: "./dist/assets/snacks.jpg", label: "Snacks" },
+    { path: "/poultry", img: "./dist/assets/poultry.jpeg", label: "Meat & Poultry" },
+    { path: "/fruitVeg", img: "./dist/assets/fruitVeg.jpg", label: "Fruit & Veg" },
+    { path: "/dairy", img: "./dist/assets/dairy.jpg", label: "Dairy" },
   ];
 
   return (
     <>
-      {/* ----------------- ATTENTION-GRABBING SWIPER BANNER ----------------- */}
       <div className="hero-swiper-container">
         <div className="swiper-wrapper">
           {/* Map over the slides array to generate the content */}
@@ -79,7 +78,6 @@ const Home = () => {
           ))}
         </div>
       </div>
-      {/* -------------------------------------------------------------------- */}
 
       {/* Main Content Container: Applies max-width and padding from Home.css */}
       <div className="container">
