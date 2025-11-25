@@ -58,7 +58,7 @@ const Bevarages = () => {
     <div className="background2">
     </div>
   <div className="page-wrapper2">
-    <section className="promo-banner">
+    {/* <section className="promo-banner">
       
       {/* <div className="banner big-sale">
         <h2>Big sale <span>60%</span></h2>
@@ -67,16 +67,32 @@ const Bevarages = () => {
       {/* <div className="banner special-coupon">
         <h2>Special Coupon <span>30%</span></h2>
         <p>Use code: SAVE30</p>
-      </div> */}
-    </section>
-    <div className="divider">
+      </div> 
+    </section> */}
+    {/* <div className="divider">
       <h1 className="divider-big">TIME TO</h1>
       <h1 className="divider-text text1">THIRST!</h1>
       <h1 className="divider-text text2">QUENCH!</h1>
       <h1 className="divider-text text1">CHILL!</h1>
       <h1 className="divider-big">REFRESH</h1>
     
-    </div>
+    </div> */}
+
+    <section className="hero-section">
+  <div className="hero-content">
+    <span className="tagline">Your Comfort is Our Business</span>
+    <h1>We Bring the Store to Your Door</h1>
+    <p className="subtext">GET 25% OFF ON SELECTED ITEMS</p>
+    <button className="shop-btn"><a href="/bevarages">Shop Now</a></button>
+  </div>
+
+  <div className="hero-image">
+    <img src="/dist/drinkBanner.jpg" alt="Beverages" />
+  </div>
+</section>
+<div className="line-Divider">
+    ● ● ● ● ● ● ● ● ● ● Shop Affordably● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● 
+</div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
       color: "darkblue", 

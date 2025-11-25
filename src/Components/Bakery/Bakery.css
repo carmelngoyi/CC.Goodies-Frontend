@@ -4,9 +4,14 @@
   /* background: #fafafa; */
 }
 
-.hero-section {
+.hero-section1 {
   width: 100%;
-  background: rgba(240, 110, 49, 0.781);
+  background: url("/dist/backeryBanner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+  height: 60vh;
+  /* background: rgba(240, 110, 49, 0.781); */
   /* background: #eab96d; */
   padding: 60px 90px;
   display: flex;
@@ -19,13 +24,20 @@
   max-width: 45%;
 }
 
-.hero-content .tagline {
-  background: #e11d48;
+.hero-content .tagline1 {
+  background: #e90738;
   color: white;
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
+}
+
+.hero-heading1{
+  font-size: 42px;
+  font-weight: 700;
+  margin: 20px 0 5px;
+  color: #000;
 }
 
 .hero-content h1 {
@@ -52,7 +64,7 @@
   font-weight: 600;
 }
 
-.hero-image img {
+.hero-image1 img {
   width: 500px;
   object-fit: contain;
   border-radius: 12px;
@@ -160,7 +172,7 @@
 .line-Divider{
   width: 100%;
   height: 50px;
-  background-color: red;
+  background-color: black;
   color: white;
   font-size: 30px;
   padding-top: 5px;

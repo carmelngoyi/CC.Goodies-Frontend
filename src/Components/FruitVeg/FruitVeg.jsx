@@ -56,22 +56,14 @@ const FruitsVeg = () => {
   return (
     <>
   <div className="page-wrapper5">
-    <section className="promo-banner">
-      <div className="banner big-sale">
-        <h2>Big sale <span>60%</span></h2>
-        <p>On selected items</p>
-      </div>
-      <div className="banner special-coupon">
-        <h2>Special Coupon <span>30%</span></h2>
-        <p>Use code: SAVE30</p>
-      </div>
-    </section>
-    <div className="divider">
-      <h1 className="divider-big">YOUR</h1>
-      <h1 className="divider-text text1">STAPLE!</h1>
-      <h1 className="divider-text text2">STOCK UP!</h1>
-      <h1 className="divider-text text1">ESSENTIAL!</h1>
-      <h1 className="divider-big">PANTRY</h1>
+    
+    <div className="divider5">
+      <h1 className="divider-big">DELIVERED</h1>
+      <h1 className="divider-text text1">DAILY!</h1>
+      <h1 className="divider-text text2">FRESHNESS!</h1>
+      <h1 className="divider-text text1">FARM-to-DOOR
+</h1>
+      <h1 className="divider-big">FRUITS & VEGGIES</h1>
     
     </div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",

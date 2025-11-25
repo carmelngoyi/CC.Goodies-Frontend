@@ -56,7 +56,7 @@ const Dairy = () => {
   return (
     <>
   <div className="page-wrapper4">
-    <section className="promo-banner">
+    {/* <section className="promo-banner">
       <div className="banner big-sale">
         <h2>Big sale <span>60%</span></h2>
         <p>On selected items</p>
@@ -65,8 +65,8 @@ const Dairy = () => {
         <h2>Special Coupon <span>30%</span></h2>
         <p>Use code: SAVE30</p>
       </div>
-    </section>
-    <div className="divider">
+    </section> */}
+    <div className="divider4">
       <h1 className="divider-big">FIND OUR</h1>
       <h1 className="divider-text text1">CREAMIEST!</h1>
       <h1 className="divider-text text2">FRESHEST!</h1>

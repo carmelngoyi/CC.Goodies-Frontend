@@ -2,7 +2,7 @@ body {
   background-color: #cce0f5;
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 
 .orders-container {

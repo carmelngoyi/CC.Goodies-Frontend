@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
+import { FaCog } from "react-icons/fa";
 
 const Navbar = ({ darkMode, toggleMode }) => {
   const [cartCount, setCartCount] = useState(0);
   const [isAuth, setIsAuth] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+
+  const [openSettings, setOpenSettings] = useState(false);
+  const toggleSettings = () => setOpenSettings(!openSettings);
+
   const navigate = useNavigate();
 
-  // --- Initial Setup and Auth/Cart Logic (Unchanged) ---
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
     document.body.classList.toggle("light-mode", !darkMode);
@@ -39,22 +42,13 @@ const Navbar = ({ darkMode, toggleMode }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // const handleSignOut = () => {
-  //   localStorage.removeItem("Auth");
-  //   navigate("/signin");
-  // };
-  // --- End of Initial Setup and Auth/Cart Logic ---
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/search?query=${searchTerm.trim()}`);
-      setSearchTerm("");
-    }
+  const handleSignOut = () => {
+    localStorage.removeItem("Auth");
+    navigate("/signin");
   };
 
   const categories = [
-    { path: "/backery", text: "Backery" },
+    { path: "/bakery", text: "Bakery" },
     { path: "/bevarages", text: "Beverages" },
     { path: "/cereal", text: "Cereal" },
     { path: "/dairy", text: "Dairy" },
@@ -82,23 +76,21 @@ const Navbar = ({ darkMode, toggleMode }) => {
 
       <div className="nav-links">
         
-        {/* --- Home and Products Links --- */}
         {mainNavLinks.map((link, index) => (
           <Link key={index} to={link.path} className="nav-link">
             {link.text}
           </Link>
         ))}
 
-        {/* --- Categories Dropdown (Position 3) --- */}
         <div
           className="dropdown"
           onMouseEnter={() => setIsDropdownOpen(true)}
           onMouseLeave={() => setIsDropdownOpen(false)}
         >
           <span className="nav-link dropdown-toggle">
-            Categories <i class="fa fa-caret-down" aria-hidden="true"></i>
-
+            Categories <i className="fa fa-caret-down" aria-hidden="true"></i>
           </span>
+
           {isDropdownOpen && (
             <div className="dropdown-menu">
               {categories.map((item, index) => (
@@ -106,7 +98,7 @@ const Navbar = ({ darkMode, toggleMode }) => {
                   key={index}
                   to={item.path}
                   className="dropdown-item"
-                  onClick={() => setIsDropdownOpen(false)} 
+                  onClick={() => setIsDropdownOpen(false)}
                 >
                   {item.text}
                 </Link>
@@ -121,29 +113,26 @@ const Navbar = ({ darkMode, toggleMode }) => {
           </Link>
         ))}
 
-        {/* <form className="search-form" onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className={`search-input ${darkMode ? "dark" : "light"}`}
-          />
-          <button type="submit" className="search-btn">
-            🔍
-          </button>
-        </form> */}
+        {/* SETTINGS MENU */}
+        <div className="settings-container">
+          <FaCog className="settings-icon" onClick={toggleSettings} />
 
-        <button onClick={toggleMode} className="mode-icon-btn">
-          {darkMode ? '☀️' : '🌙'}
-        </button>
-        
-        {/* Sign Out Logic (Commented out as in original) */}
-        {/* {isAuth && (
-          <button onClick={handleSignOut} className="toggle-btn" style={{ marginLeft: "1rem", background: "#e63946", color: "#fff" }}>
-            Log Out
-          </button>
-        )} */}
+          {openSettings && (
+            <div className="settings-dropdown">
+
+              <button onClick={toggleMode} className="settings-item">
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </button>
+
+              {isAuth && (
+                <button onClick={handleSignOut} className="settings-item logout-btn">
+                  Sign out/ Sign In
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
       </div>
     </nav>
   );

@@ -1,6 +1,6 @@
 .page-wrapper {
   font-family: 'Poppins', sans-serif;
-  background: #eba0c6;
+  /* background: #eba0c6; */
 }
 
 .promo-banner {
@@ -42,8 +42,13 @@
   font-size: 1rem;
 }
 
-.divider{
+.divider5{
   width: 100%;
+  background: url("/dist/fruitBanner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+  height: 70vh;
 }
 
 .divider-big{

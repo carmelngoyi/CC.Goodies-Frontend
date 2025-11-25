@@ -74,6 +74,7 @@ const Cereal = () => {
       <h1 className="divider-big">START</h1>
     
     </div>
+    
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
       color: "darkblue", 

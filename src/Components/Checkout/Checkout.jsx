@@ -1,13 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import "./checkout.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import Footer from "../Footer/Footer";
 import { apiFetch } from "../../utility/Api.js";
-import { ApiContext } from "../../App.jsx";
-
-
-const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
+import Footer from "../Footer/Footer.jsx";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -17,18 +12,19 @@ const Checkout = () => {
     city: "",
     email: "",
   });
-
   const [payment, setPayment] = useState({
-    method: "card",
+    method: "",
     cardNumber: "",
     expiry: "",
     cvv: "",
     accountNumber: "",
     bankName: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   const navigate = useNavigate();
-  const apiFetch = useContext(ApiContext);
+
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]").map(item => ({
       ...item,
@@ -71,56 +67,75 @@ const Checkout = () => {
     setPayment({ ...payment, [name]: value });
   };
 
+  const allFieldsFilled = () => {
+    const shippingFilled = shipping.name && shipping.address && shipping.email;
+    const paymentFilled =
+      (payment.method === "card" &&
+        payment.cardNumber &&
+        payment.expiry &&
+        payment.cvv) ||
+      (payment.method === "eft" && payment.accountNumber && payment.bankName);
+    return shippingFilled && paymentFilled && cartItems.length > 0;
+  };
+
   const handlePlaceOrder = async () => {
-    if (!cartItems || cartItems.length === 0) {
-      alert("Cart is empty. Please add items before checkout.");
+    if (!allFieldsFilled()) {
+      setMessage({ text: "Please fill all required fields.", type: "error" });
       return;
     }
 
-    if (!shipping.name || !shipping.address || !shipping.email) {
-      alert("Please fill all shipping fields");
-      return;
-    }
-
-    if (payment.method === "card") {
-      if (!payment.cardNumber || !payment.expiry || !payment.cvv) {
-        alert("Please fill all card details");
-        return;
-      }
-    } else if (payment.method === "eft") {
-      if (!payment.accountNumber || !payment.bankName) {
-        alert("Please fill EFT details");
-        return;
-      }
-    }
+    setLoading(true);
+    setMessage({ text: "", type: "" });
 
     try {
-      await axios.apiFetch("Api/userBankingDetails", {
-        email: shipping.email,
-        method: payment.method,
-        cardNumber: payment.cardNumber,
-        expiry: payment.expiry,
-        cvv: payment.cvv,
-        accountNumber: payment.accountNumber,
-        bankName: payment.bankName,
+      await apiFetch(`/api/userBankingDetails`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: shipping.email,
+          method: payment.method || "card",
+          cardNumber: payment.cardNumber,
+          expiry: payment.expiry,
+          cvv: payment.cvv,
+          accountNumber: payment.accountNumber,
+          bankName: payment.bankName,
+        }),
       });
 
-
-      await axios.post(`${elasticIP}/orders`, {
+      const orderPayload = {
         email: shipping.email,
         items: cartItems,
         total,
         shipping,
-        payment,
+        payment: { ...payment, method: payment.method || "card" },
         createdAt: new Date(),
+      };
+
+      await apiFetch(`/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
       });
 
-      alert("Order placed successfully!");
-      localStorage.setItem("cart", JSON.stringify([]));
+      setMessage({ text: "Order placed successfully!", type: "success" });
+      localStorage.setItem("cart", "[]");
       setCartItems([]);
-      navigate("/products");
+      setShipping({ name: "", address: "", city: "", email: "" });
+      setPayment({
+        method: "",
+        cardNumber: "",
+        expiry: "",
+        cvv: "",
+        accountNumber: "",
+        bankName: "",
+      });
+
+      setTimeout(() => navigate("/products"), 2000);
     } catch (err) {
-      alert("Failed to save banking details.");
+      console.error(err);
+      setMessage({ text: "Failed to place order. Check console.", type: "error" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -129,65 +144,58 @@ const Checkout = () => {
       <div className="checkout-container">
         <div style={{ marginBottom: "1rem" }}>
           <Link to="/cart">
-            <button>Back to Cart</button>
+            <button className="back-btn">Back to Cart</button>
           </Link>
         </div>
 
         <h2 className="checkout-order">Your Cart</h2>
-
-          <div className="checkout-cart">
-            {cartItems.length === 0 ? (
-              <p>Your cart is empty</p>
-            ) : (
-              <ul>
-                {cartItems.map((item, index) => (
-                  <li key={index} className="checkout-item">
-                    <img
-                      src={item.image_url || item.image}
-                      alt={item.product_name}
-                      className="checkout-img"
-                    />
-                    <div>
-                      <h4>{item.product_name}</h4>
-                      <div className="quantity-controls">
-                        <button onClick={() => updateQuantity(item._id, -1)}>-</button>
-                        <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item._id, 1)}>+</button>
-                      </div>
-                      <p>
-                        Price: R{item.price.toFixed(2)} × {item.quantity} = R
-                        {(item.price * item.quantity).toFixed(2)}
-                      </p>
-                      <button
-                        className="remove-item-btn"
-                        onClick={() => removeItem(item._id)}
-                        style={{
-                          marginTop: "8px",
-                          background: "#e63946",
-                          color: "#fff",
-                          border: "none",
-                          padding: "4px 12px",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Remove Item
-                      </button>
+        <div className="checkout-cart">
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty</p>
+          ) : (
+            <ul>
+              {cartItems.map((item, index) => (
+                <li key={index} className="checkout-item">
+                  <img
+                    src={item.image_url || item.image}
+                    alt={item.product_name}
+                    className="checkout-img"
+                  />
+                  <div>
+                    <h4>{item.product_name}</h4>
+                    <div className="quantity-controls">
+                      <button onClick={() => updateQuantity(item._id, -1)}>-</button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item._id, 1)}>+</button>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className="checkout-totals">
-              <p>Subtotal: R{subtotal.toFixed(2)}</p>
-              <p>Tax (15%): R{tax.toFixed(2)}</p>
-              <h3>Total: R{total.toFixed(2)}</h3>
-            </div>
+                    <p>
+                      Price: R{item.price.toFixed(2)} × {item.quantity} = R
+                      {(item.price * item.quantity).toFixed(2)}
+                    </p>
+                    <button
+                      className="remove-item-btn"
+                      onClick={() => removeItem(item._id)}
+                    >
+                      Remove Item
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="checkout-totals">
+            <p>Subtotal: R{subtotal.toFixed(2)}</p>
+            <p>Tax (15%): R{tax.toFixed(2)}</p>
+            <h3>Total: R{total.toFixed(2)}</h3>
           </div>
+        </div>
 
         <div className="checkout-content">
-          
-        <h1>Checkout Information</h1>
+          <h1>Checkout Information</h1>
+
+          {message.text && (
+            <div className={`message ${message.type}`}>{message.text}</div>
+          )}
 
           <div className="checkout-form">
             <h2>Shipping Details</h2>
@@ -198,7 +206,6 @@ const Checkout = () => {
                 placeholder="Full Name"
                 value={shipping.name}
                 onChange={handleInputChange}
-                required
               />
               <input
                 type="text"
@@ -206,7 +213,6 @@ const Checkout = () => {
                 placeholder="Address"
                 value={shipping.address}
                 onChange={handleInputChange}
-                required
               />
               <input
                 type="text"
@@ -221,26 +227,20 @@ const Checkout = () => {
                 placeholder="Email"
                 value={shipping.email}
                 onChange={handleInputChange}
-                required
               />
 
               <h2>Payment Details</h2>
               <div className="payment-methods">
                 <button
                   type="button"
-                  className={`payment-option ${
-                    payment.method === "card" ? "active" : ""
-                  }`}
+                  className={`payment-option ${payment.method === "card" ? "active" : ""}`}
                   onClick={() => setPayment({ ...payment, method: "card" })}
                 >
-                  <i class="fa fa-credit-card" aria-hidden="true"></i>
- Credit/Debit Card
+                  💳 Credit/Debit Card
                 </button>
                 <button
                   type="button"
-                  className={`payment-option ${
-                    payment.method === "eft" ? "active" : ""
-                  }`}
+                  className={`payment-option ${payment.method === "eft" ? "active" : ""}`}
                   onClick={() => setPayment({ ...payment, method: "eft" })}
                 >
                   🏦 EFT
@@ -255,7 +255,6 @@ const Checkout = () => {
                     placeholder="Card Number"
                     value={payment.cardNumber}
                     onChange={handlePaymentChange}
-                    required
                   />
                   <input
                     type="text"
@@ -263,7 +262,6 @@ const Checkout = () => {
                     placeholder="Expiry (MM/YY)"
                     value={payment.expiry}
                     onChange={handlePaymentChange}
-                    required
                   />
                   <input
                     type="password"
@@ -271,7 +269,6 @@ const Checkout = () => {
                     placeholder="CVV"
                     value={payment.cvv}
                     onChange={handlePaymentChange}
-                    required
                   />
                 </div>
               )}
@@ -284,7 +281,6 @@ const Checkout = () => {
                     placeholder="Account Number"
                     value={payment.accountNumber}
                     onChange={handlePaymentChange}
-                    required
                   />
                   <input
                     type="text"
@@ -292,7 +288,6 @@ const Checkout = () => {
                     placeholder="Bank Name"
                     value={payment.bankName}
                     onChange={handlePaymentChange}
-                    required
                   />
                 </div>
               )}
@@ -301,12 +296,12 @@ const Checkout = () => {
                 className="place-order-btn"
                 type="button"
                 onClick={handlePlaceOrder}
+                disabled={!allFieldsFilled() || loading}
               >
-                Place Your Order
+                {loading ? "Placing Order..." : "Place Your Order"}
               </button>
             </form>
           </div>
-
         </div>
       </div>
       <Footer />

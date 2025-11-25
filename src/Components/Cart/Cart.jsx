@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./cart.css";
 import Footer from "../Footer/Footer";
 
-const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+const Cart = ({ cartItems, updateCart }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(cart);
-  }, []);
-
-  const updateCart = (items) => {
-    setCartItems(items);
-    localStorage.setItem("cart", JSON.stringify(items));
-  };
 
   const removeFromCart = (id) => {
     const updatedCart = cartItems.filter((item) => item._id !== id);
@@ -32,67 +21,85 @@ const Cart = () => {
   };
 
   const getTotal = () =>
-    cartItems.reduce(
-      (sum, item) => sum + (item.price * (item.quantity || 1)),
-      0
-    );
+    cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 
   const handleCheckout = () => {
-        navigate("/checkout");
-
+    navigate("/checkout");
   };
 
   if (cartItems.length === 0)
-    return <p style={{ padding: "20px" }}>Your cart is empty.</p>;
+    return <p className="empty-cart">Your cart is empty.</p>;
 
   return (
     <>
-    <div>
-      <h1 style={{ padding: "20px" }}>Shopping Cart</h1>
-      <div className="products-container">
-        {cartItems.map((item) => (
-          <div key={item._id} className="product-card">
-            <div>
-              <img src={item.image_url || item.image} alt={item.product_name} />
-              <h3>{item.product_name}</h3>
-              <p>R{item.price}</p>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div className="cart-wrapper">
+        <h1 className="cart-title">Your Cart</h1>
+
+        <div className="cart-layout">
+          <div className="cart-items-section">
+            {cartItems.map((item) => (
+              <div key={item._id} className="cart-item-card">
+                <img
+                  src={item.image_url || item.image}
+                  alt={item.product_name}
+                  className="cart-item-img"
+                />
+
+                <div className="cart-item-info">
+                  <h3>{item.product_name}</h3>
+                  <p className="cart-price">R{item.price}</p>
+
+                  <div className="qty-controller">
+                    <button
+                      onClick={() => changeQuantity(item._id, -1)}
+                      disabled={(item.quantity || 1) <= 1}
+                      className="changeQty"
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity || 1}</span>
+                    <button
+                      onClick={() => changeQuantity(item._id, 1)}
+                      className="changeQty"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <p className="subtotal">
+                    Subtotal: R{(item.price * (item.quantity || 1)).toFixed(2)}
+                  </p>
+                </div>
+
                 <button
-                  className="button"
-                  onClick={() => changeQuantity(item._id, -1)}
-                  disabled={(item.quantity || 1) <= 1}
+                  className="remove-item"
+                  onClick={() => removeFromCart(item._id)}
                 >
-                  -
-                </button>
-                <span>{item.quantity || 1}</span>
-                <button
-                  className="button"
-                  onClick={() => changeQuantity(item._id, 1)}
-                >
-                  +
+                  <i className="fa fa-trash bin" aria-hidden="true"></i>
                 </button>
               </div>
-              <p>
-                Subtotal: R{(item.price * (item.quantity || 1)).toFixed(2)}
-              </p>
-            </div>
-            <button
-              className="button remove-button"
-              onClick={() => removeFromCart(item._id)}
-            >
-              Remove
-            </button>
+            ))}
           </div>
-        ))}
+
+          {/* ORDER SUMMARY */}
+          <div className="order-summary">
+            <h2>Order Summary</h2>
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>R{getTotal().toFixed(2)}</span>
+            </div>
+
+            <div className="summary-row total">
+              <span>Total</span>
+              <span>R{getTotal().toFixed(2)}</span>
+            </div>
+
+            <button onClick={handleCheckout}>Go to Checkout →</button>
+          </div>
+        </div>
       </div>
-      <div style={{ padding: "20px", textAlign: "right" }}>
-        <h2>Total: R{getTotal().toFixed(2)}</h2>
-        <button className="button" onClick={handleCheckout}>
-          Checkout
-        </button>
-      </div>
-    </div>
-    <Footer />
+
+      <Footer />
     </>
   );
 };

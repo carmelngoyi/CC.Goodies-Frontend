@@ -1,19 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Backery.css";
-import Footer from "../Footer/Footer";  
+import "./Bakery.css";
+import Footer from "../Footer/Footer.jsx";  
 import { apiFetch } from "../../utility/Api.js";
 import { ApiContext } from "../../App.jsx";
 
 const elasticIP =  import.meta.env.REACT_APP_API_URL || "http://54.226.0.228:3000";
 
 async function loadProducts() {
-  const res = await apiFetch("/Api/backery");
+  const res = await apiFetch("/Api/bakery");
   const data = await res.json();
   console.log(data);
 }
 
-const Backery = () => {
+const Bakery = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ const Backery = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${elasticIP}/backery`);
+        const response = await fetch(`${elasticIP}/bakery`);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
         setProducts(data);
@@ -50,36 +50,54 @@ const Backery = () => {
     setTimeout(() => setAlert(""), 3000);
   };
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <p>Loading Baked Products...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-  <div className="page-wrapper1">
-    <section className="promo-banner">
-      <img src="backeryBanner.jpg" alt="Bakery Banner" className="banner-image" />
+    <div className="background2">
+    </div>
+  <div className="page-wrapper2">
+    {/* <section className="promo-banner">
+      
       {/* <div className="banner big-sale">
         <h2>Big sale <span>60%</span></h2>
         <p>On selected items</p>
-      </div>
-      <div className="banner special-coupon">
+      </div> */}
+      {/* <div className="banner special-coupon">
         <h2>Special Coupon <span>30%</span></h2>
         <p>Use code: SAVE30</p>
-      </div> */}
-    </section>
-    <div className="divider">
-      <h1 className="divider-big">GET YOUR</h1>
-      <h1 className="divider-text text1">FLUFFY!</h1>
-      <h1 className="divider-text text2">BUTTERY!</h1>
-      <h1 className="divider-text text1">GOLDEN!</h1>
-      <h1 className="divider-big">BAKES</h1>
+      </div> 
+    </section> */}
+    {/* <div className="divider">
+      <h1 className="divider-big">TIME TO</h1>
+      <h1 className="divider-text text1">THIRST!</h1>
+      <h1 className="divider-text text2">QUENCH!</h1>
+      <h1 className="divider-text text1">CHILL!</h1>
+      <h1 className="divider-big">REFRESH</h1>
     
-    </div>
+    </div> */}
+
+    <section className="hero-section1">
+  <div className="hero-content">
+    <span className="tagline1">Your Comfort is Our Business</span>
+    <h1 className="hero-heading1">We Bring the Store to Your Door</h1>
+    <p className="subtext">GET 25% OFF ON SELECTED ITEMS</p>
+    <button className="shop-btn"><a href="/bakery">Shop Now</a></button>
+  </div>
+
+  {/* <div className="hero-image1">
+    <img src="/dist/backeryBanner.jpg" alt="Beverages" />
+  </div> */}
+</section>
+<div className="line-Divider">
+    ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● 
+</div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
       color: "darkblue", 
       textAlign: "center"}} 
-      className="page-title">Fresh Baked Goods Straight to Your Door!</h1>
+      className="page-title">Find The Best Goods Right Here!</h1>
    
     {alert && <p className="alert">{alert}</p>}
     <div className="products-container">
@@ -120,4 +138,4 @@ const Backery = () => {
 
 };
 
-export default Backery;
+export default Bakery;

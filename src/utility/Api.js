@@ -1,6 +1,17 @@
 export async function apiFetch(endpoint, options = {}) {
-  // Use environment variable or default to localhost
-  const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000/';
+  const baseURL = "http://54.226.0.228:3000";
   const url = new URL(endpoint, baseURL);
-  return fetch(url.toString(), options);
+
+  const response = await fetch(url.toString(), options);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`API Error: ${response.status} - ${errorText}`);
+  }
+
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
 }
