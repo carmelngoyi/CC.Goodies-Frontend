@@ -112,7 +112,7 @@ const Home = () => {
         </div>
 
         {/* Video Section */}
-        <div className="video">
+        {/* <div className="video">
           <video
             width="100%"
             controls
@@ -124,7 +124,7 @@ const Home = () => {
             <source src="/dist/assets/Your paragraph text.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+        </div> */}
       </div>
 
       <Footer />
