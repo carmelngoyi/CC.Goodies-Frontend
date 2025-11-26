@@ -340,6 +340,7 @@ const Checkout = () => {
           <div className="modal">
             <h2>🎉 Order Complete! 🎉</h2>
             <p className="modal-message">Thank you For Shopping With us</p>
+            <p className="modal-message">CC.Goodies❤️</p>
             <button 
               className="modal-ok-btn"
               onClick={handleCloseModal}

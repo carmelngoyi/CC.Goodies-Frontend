@@ -56,14 +56,29 @@ const FruitsVeg = () => {
   return (
     <>
   <div className="page-wrapper5">
+    <div className="vegVideo">
+      <h3>We have the best goods, Fresh from our FarmHouse</h3>
+          <video
+            width="60%"
+            controls
+            autoPlay
+            loop
+            muted
+            style={{ borderRadius: "10px" }}
+          >
+            <source src="https://media.istockphoto.com/id/1892982864/video/variety-of-fruits-for-sale-at-al-mubarakiya-bazaar-in-kuwait-city.mp4?s=mp4-640x640-is&k=20&c=qMv10vTSaTx8zZerBJ2EZ9aILunJT9sWbGmD8HoMAFg=" type="video/mp4" />
+          </video>
+        
+    </div>
+          <h1 className="divider-big">FRUITS & VEGGIES</h1>
+
     
     <div className="divider5">
-      <h1 className="divider-big">DELIVERED</h1>
       <h1 className="divider-text text1">DAILY!</h1>
       <h1 className="divider-text text2">FRESHNESS!</h1>
       <h1 className="divider-text text1">FARM-to-DOOR
 </h1>
-      <h1 className="divider-big">FRUITS & VEGGIES</h1>
+      <h1 className="divider-big">DELIVERED</h1>
     
     </div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",

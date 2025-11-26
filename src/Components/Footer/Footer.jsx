@@ -16,7 +16,7 @@ const Footer = () => {
 
         <div className="footer-section">
           <h2 className="footer-h2">Contact Us</h2>
-          <p className="footer-p">Address: 123 Bridal St, Wedding City</p>
+          <p className="footer-p">Address: 123 Shop St, Goodies City</p>
           <p className="footer-p">Phone: +27 69 456 7890</p>
           <p className="footer-p">Email: cc.goodies@gmail.com</p>
         </div>

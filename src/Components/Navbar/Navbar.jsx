@@ -11,7 +11,7 @@ const Navbar = ({ darkMode, toggleMode, cartItems }) => {
     { name: "Cereal", path: "/cereal" },
     { name: "Dairy", path: "/dairy" },
     { name: "Fruit & Veg", path: "/fruitVeg" },
-    { name: "Meat & Poultry", path: "/poultry" },
+    // { name: "Meat & Poultry", path: "/poultry" },
     { name: "Snacks", path: "/snacks" },
   ];
   

@@ -229,3 +229,19 @@ img{
     grid-template-columns: 1fr;
   }
 }
+
+.vegVideo{
+  display: flex;
+  background-color: #218838;
+}
+
+.vegVideo, video{
+  display: flex;
+}
+
+.vegVideo{
+  font-size: 34px;
+  font-family: "Playfair", serif;
+  color: #000;
+}
+
