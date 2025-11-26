@@ -73,14 +73,14 @@ const FruitsVeg = () => {
           <h1 className="divider-big">FRUITS & VEGGIES</h1>
 
     
-    <div className="divider5">
+    {/* <div className="divider5">
       <h1 className="divider-text text1">DAILY!</h1>
       <h1 className="divider-text text2">FRESHNESS!</h1>
       <h1 className="divider-text text1">FARM-to-DOOR
 </h1>
       <h1 className="divider-big">DELIVERED</h1>
     
-    </div>
+    </div> */}
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
       color: "darkblue", 

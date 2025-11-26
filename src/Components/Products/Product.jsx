@@ -90,7 +90,7 @@ const Product = () => {
   return (
     <>
       <div className="page-wrapper">
-        <section className="promo-banner">
+        {/* <section className="promo-banner">
           <div className="banner big-sale">
             <h2>Big sale <span>60%</span></h2>
             <p>On selected items</p>
@@ -99,15 +99,29 @@ const Product = () => {
             <h2>Special Coupon <span>30%</span></h2>
             <p>Use code: SAVE30</p>
           </div>
-        </section>
-        <div className="divider">
+        </section> */}
+        {/* <div className="divider">
           <h1 className="divider-big">BECOME OUR</h1>
           <h1 className="divider-text text1">BIGGEST!</h1>
           <h1 className="divider-text text2">GREATEST!</h1>
           <h1 className="divider-text text1">SUPER!</h1>
           <h1 className="divider-big">SHOPSTAR</h1>
         
-        </div>
+        </div> */}
+         <div className="vegVideo">
+      <h3>We have the best goods, Fresh from our FarmHouse</h3>
+          <video
+            width="80%"
+            controls
+            autoPlay
+            loop
+            muted
+            style={{ borderRadius: "10px" }}
+          >
+            <source src="https://media.istockphoto.com/id/482921784/video/placing-vegetables-into-a-hot-pan.mp4?s=mp4-640x640-is&k=20&c=AbcOl8O0BUYoL0-gOiz-KLhzBOjyOAZy_gZheHERFdo=" type="video/mp4" />
+          </video>
+        
+    </div>
         <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
           marginTop: "50px", 
           color: "darkblue", 
