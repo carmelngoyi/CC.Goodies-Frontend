@@ -52,7 +52,7 @@ const Bakery = () => {
     }
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     
-    // Check if the product already exists in the cart
+    // Checks if the product already exists in the cart
     const existingItemIndex = cart.findIndex(item => item._id === product._id);
     
     if (existingItemIndex !== -1) {

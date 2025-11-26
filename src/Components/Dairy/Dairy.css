@@ -231,3 +231,20 @@ img{
     grid-template-columns: 1fr;
   }
 }
+
+.vegVideo1{
+  display: flex;
+    background: linear-gradient(135deg, #f1d2ae 0%, #eef0f3 100%);
+    align-items:center;
+    justify-content: center;
+}
+
+.vegVideo, video{
+  display: flex;
+}
+
+.dairy{
+  font-size: 40px;
+  font-family: "Playfair", serif;
+  color: #000;
+}

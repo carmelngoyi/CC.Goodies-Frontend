@@ -66,13 +66,19 @@ const Dairy = () => {
         <p>Use code: SAVE30</p>
       </div>
     </section> */}
-    <div className="divider4">
-      <h1 className="divider-big">FIND OUR</h1>
-      <h1 className="divider-text text1">CREAMIEST!</h1>
-      <h1 className="divider-text text2">FRESHEST!</h1>
-      <h1 className="divider-text text1">RICHEST!</h1>
-      <h1 className="divider-big">DAIRY</h1>
-    
+    <div className="vegVideo1">
+      <h3 className="dairy">Farm Fresh Dairy</h3>
+          <video
+            width="60%"
+            controls
+            autoPlay
+            loop
+            muted
+            style={{ borderRadius: "10px" }}
+          >
+            <source src="https://media.istockphoto.com/id/92577373/video/dairy-products.mp4?s=mp4-640x640-is&k=20&c=4FAj2xlftI3tReBUThCvkqrCyaX1hwlpV-10oFwFaH0=" type="video/mp4" />
+          </video>
+        
     </div>
     <h1 style={{fontFamily: "Arial, Helvetica, sans-serif",
       marginTop: "50px", 
